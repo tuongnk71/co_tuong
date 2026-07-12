@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, interactive-widget=resizes-content" />
+<meta name="theme-color" content="#B23A2A" />
+<meta name="mobile-web-app-capable" content="yes" />
+<title>Cờ Tướng — Học Khai Cuộc</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;800&family=Noto+Serif+TC:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#EDE0C5; --bg2:#E4D3B2; --card:#FBF4E2; --card2:#F5EAD2; --border:#D8C49C; --border2:#C4AC7E;
+  --ink:#3A2E21; --muted:#8D7B61; --red:#B23A2A; --red-dk:#8E2B1D; --red-lt:#D0543F;
+  --green:#2F8B57; --gold:#C98A2C; --dark:#2C2823; --shadow:0 4px 14px rgba(90,60,20,.18);
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+html,body{margin:0;padding:0;}
+body{
+  background:
+    radial-gradient(1200px 500px at 50% -200px, rgba(178,58,42,.10), transparent 70%),
+    linear-gradient(var(--bg), var(--bg2));
+  min-height:100vh; color:var(--ink);
+  font-family:'Be Vietnam Pro', system-ui, sans-serif;
+}
+.app{max-width:540px;margin:0 auto;padding:10px 12px 40px;}
+/* ---------- header ---------- */
+.hdr{display:flex;align-items:center;gap:12px;padding:10px 4px 6px;}
+.logo{width:46px;height:46px;border-radius:50%;background:radial-gradient(circle at 35% 30%, #D45B42, var(--red) 60%, var(--red-dk));
+  color:#FFF4DC;display:flex;align-items:center;justify-content:center;font-family:'Noto Serif TC',serif;font-size:26px;
+  box-shadow:0 3px 8px rgba(142,43,29,.4), inset 0 0 0 3px rgba(255,244,220,.35);flex:0 0 auto;}
+.hdr h1{font-size:20px;margin:0;font-weight:800;letter-spacing:.3px;}
+.hdr .sub{font-size:12px;color:var(--muted);margin-top:2px;}
+.tabs{display:flex;gap:8px;margin:12px 0 14px;}
+.tab{flex:1;text-align:center;padding:11px 8px;border-radius:14px;border:1.5px solid var(--border2);
+  background:var(--card2);font-weight:600;font-size:14.5px;color:var(--muted);cursor:pointer;user-select:none;transition:all .15s;}
+.tab.on{background:linear-gradient(var(--red-lt),var(--red));color:#FFF6E3;border-color:var(--red-dk);box-shadow:0 3px 8px rgba(142,43,29,.35);}
+/* ---------- library cards ---------- */
+.opcard{background:var(--card);border:1.5px solid var(--border);border-radius:16px;padding:14px 15px;margin-bottom:12px;
+  box-shadow:var(--shadow);cursor:pointer;position:relative;overflow:hidden;}
+.opcard:active{transform:scale(.985);}
+.opcard h3{margin:0 0 6px;font-size:16px;font-weight:800;color:var(--red-dk);padding-right:28px;}
+.opcard .cn{font-family:'Noto Serif TC',serif;color:var(--gold);font-size:13px;margin-left:6px;font-weight:700;}
+.opcard p{margin:8px 0 0;font-size:13px;line-height:1.5;color:var(--ink);opacity:.85;}
+.badges{display:flex;gap:6px;flex-wrap:wrap;}
+.badge{font-size:11px;font-weight:600;padding:3px 9px;border-radius:99px;border:1px solid;}
+.b-do{color:#A03020;border-color:#D8907F;background:#F9E3DC;}
+.b-den{color:#3A362E;border-color:#A9A190;background:#EAE4D4;}
+.b-lv{color:#7A5A16;border-color:#D9B979;background:#F7ECCF;}
+.b-n{color:#5A6E5D;border-color:#AEC2AF;background:#E8EFE6;}
+.learned{position:absolute;top:12px;right:12px;width:24px;height:24px;border-radius:50%;
+  background:var(--green);color:#fff;display:none;align-items:center;justify-content:center;font-size:14px;font-weight:800;}
+.opcard.is-learned .learned{display:flex;}
+/* ---------- study / play shared ---------- */
+.topbar{display:flex;align-items:center;gap:10px;margin:4px 0 10px;}
+.backbtn{width:38px;height:38px;border-radius:12px;border:1.5px solid var(--border2);background:var(--card);
+  font-size:18px;color:var(--red-dk);cursor:pointer;flex:0 0 auto;font-weight:800;}
+.topbar .t{font-weight:800;font-size:15.5px;line-height:1.25;}
+.topbar .t small{display:block;font-weight:500;color:var(--muted);font-size:11.5px;margin-top:1px;}
+.bubble{display:flex;gap:10px;align-items:flex-start;background:var(--card);border:1.5px solid var(--border);
+  border-radius:16px;padding:11px 13px;box-shadow:var(--shadow);margin-bottom:10px;min-height:58px;}
+.avatar{width:34px;height:34px;border-radius:50%;flex:0 0 auto;background:radial-gradient(circle at 35% 30%,#4A443C,var(--dark));
+  color:#F5EBD3;display:flex;align-items:center;justify-content:center;font-family:'Noto Serif TC',serif;font-size:18px;
+  box-shadow:inset 0 0 0 2px rgba(245,235,211,.3);}
+.bubble .txt{font-size:13.5px;line-height:1.5;}
+.bubble .mv{display:inline-block;background:var(--red);color:#FFF3DE;font-weight:700;font-size:12px;
+  padding:1.5px 8px;border-radius:8px;margin-right:6px;}
+.boardwrap{background:linear-gradient(#E8CFA0,#DFC08A);border:2px solid #B08D55;border-radius:18px;
+  box-shadow:var(--shadow), inset 0 0 40px rgba(140,95,40,.25);padding:6px;position:relative;}
+.boardwrap svg{display:block;width:100%;height:auto;user-select:none;}
+.chips{display:flex;gap:6px;overflow-x:auto;padding:10px 2px;scrollbar-width:thin;}
+.chip{flex:0 0 auto;font-size:12.5px;font-weight:600;padding:6px 10px;border-radius:10px;border:1.5px solid var(--border2);
+  background:var(--card);color:var(--ink);cursor:pointer;white-space:nowrap;}
+.chip.red{color:var(--red-dk);}
+.chip.blk{color:#2E2A26;}
+.chip.cur{background:var(--dark);color:#F7EEDC;border-color:var(--dark);box-shadow:0 2px 6px rgba(0,0,0,.3);}
+.chip .no{opacity:.55;font-weight:500;margin-right:3px;font-size:11px;}
+.ctrls{display:flex;gap:8px;margin-top:4px;}
+.cbtn{flex:1;padding:12px 4px;border-radius:14px;border:1.5px solid var(--border2);background:var(--card);
+  font-size:17px;cursor:pointer;color:var(--red-dk);font-weight:800;transition:transform .1s;}
+.cbtn:active{transform:scale(.95);}
+.cbtn:disabled{opacity:.35;cursor:default;}
+.bigrow{display:flex;gap:10px;margin-top:10px;}
+.bigbtn{flex:1;padding:13px 8px;border-radius:14px;font-size:14.5px;font-weight:700;cursor:pointer;border:1.5px solid;}
+.bigbtn.solid{background:linear-gradient(var(--red-lt),var(--red));border-color:var(--red-dk);color:#FFF6E3;box-shadow:0 3px 8px rgba(142,43,29,.35);}
+.bigbtn.line{background:var(--card);border-color:var(--red);color:var(--red-dk);}
+.bigbtn.green{background:linear-gradient(#43A268,var(--green));border-color:#26714628;border-color:#256E45;color:#F0FFF5;}
+.bigbtn:active{transform:scale(.97);}
+/* ---------- play options ---------- */
+.optrow{display:flex;gap:8px;margin-bottom:10px;}
+.optbtn{flex:1;padding:10px 4px;border-radius:12px;border:1.5px solid var(--border2);background:var(--card2);
+  font-size:13px;font-weight:600;color:var(--muted);cursor:pointer;text-align:center;}
+.optbtn.on{background:var(--dark);color:#F7EEDC;border-color:var(--dark);}
+.statusline{display:flex;align-items:center;justify-content:space-between;margin:2px 2px 8px;font-size:13px;font-weight:600;}
+.turnpill{padding:4px 12px;border-radius:99px;font-size:12.5px;font-weight:700;}
+.turn-r{background:#F6DED6;color:var(--red-dk);border:1px solid #DFA091;}
+.turn-b{background:#E3DFD3;color:#2E2A26;border:1px solid #A9A190;}
+.thinking{color:var(--muted);font-size:12px;font-style:italic;}
+/* ---------- toast & overlay ---------- */
+.toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(20px);background:var(--dark);color:#F7EEDC;
+  padding:11px 20px;border-radius:14px;font-size:14px;font-weight:600;opacity:0;pointer-events:none;transition:all .25s;z-index:60;
+  box-shadow:0 6px 18px rgba(0,0,0,.35);max-width:90vw;text-align:center;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+.overlay{position:fixed;inset:0;background:rgba(40,28,14,.55);display:none;align-items:center;justify-content:center;z-index:50;padding:20px;}
+.overlay.show{display:flex;}
+.obox{background:var(--card);border:2px solid var(--border2);border-radius:20px;padding:26px 22px;text-align:center;max-width:320px;width:100%;box-shadow:0 10px 40px rgba(0,0,0,.4);}
+.obox .big{font-size:40px;}
+.obox h2{margin:10px 0 6px;font-size:20px;color:var(--red-dk);}
+.obox p{margin:0 0 16px;font-size:13.5px;color:var(--muted);}
+.hidden{display:none !important;}
+.section-note{font-size:12px;color:var(--muted);margin:2px 4px 10px;line-height:1.5;}
+.idea{background:var(--card2);border:1.5px dashed var(--border2);border-radius:14px;padding:10px 13px;font-size:12.5px;line-height:1.55;color:var(--ink);margin-top:10px;}
+.idea b{color:var(--red-dk);}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="hdr">
+    <div class="logo">帥</div>
+    <div>
+      <h1>Cờ Tướng</h1>
+      <div class="sub">Học khai cuộc &amp; đấu trí cùng máy</div>
+    </div>
+  </div>
+
+  <div class="tabs" id="mainTabs">
+    <div class="tab on" id="tabLib">📚 Khai cuộc</div>
+    <div class="tab" id="tabPlay">⚔️ Chơi cờ</div>
+  </div>
+
+  <div id="viewLib">
+    <div class="section-note">Trọn bộ <b>18 khai cuộc nổi tiếng</b> — chạm vào một thế trận để học từng nước đi kèm lời giải thích. Mỗi ván đều có thể <b>chơi tiếp với máy</b> từ bất kỳ thế cờ nào.</div>
+    <div id="opList"></div>
+  </div>
+
+  <div id="viewStudy" class="hidden">
+    <div class="topbar">
+      <button class="backbtn" id="stBack">←</button>
+      <div class="t" id="stTitle">Khai cuộc<small id="stSub"></small></div>
+    </div>
+    <div class="bubble">
+      <div class="avatar">卒</div>
+      <div class="txt" id="stBubble"></div>
+    </div>
+    <div class="boardwrap" id="stBoard"></div>
+    <div class="chips" id="stChips"></div>
+    <div class="ctrls">
+      <button class="cbtn" id="stFirst">⏮</button>
+      <button class="cbtn" id="stPrev">◀</button>
+      <button class="cbtn" id="stAuto">▶︎ Auto</button>
+      <button class="cbtn" id="stNext">▶</button>
+      <button class="cbtn" id="stLast">⏭</button>
+    </div>
+    <div class="bigrow">
+      <button class="bigbtn line" id="stRetry">↺ Học lại</button>
+      <button class="bigbtn solid" id="stPlayFrom">⚔ Chơi tiếp từ đây</button>
+      <button class="bigbtn green" id="stLearned">✓ Đã học</button>
+    </div>
+    <div class="idea" id="stIdea"></div>
+  </div>
+
+  <div id="viewPlay" class="hidden">
+    <div class="topbar">
+      <button class="backbtn" id="plBack">←</button>
+      <div class="t">Chơi cờ<small id="plSub">Chọn chế độ rồi bắt đầu</small></div>
+    </div>
+    <div class="optrow" id="modeRow">
+      <div class="optbtn on" data-mode="ai-r">🙂 Bạn cầm Đỏ</div>
+      <div class="optbtn" data-mode="ai-b">🙂 Bạn cầm Đen</div>
+      <div class="optbtn" data-mode="2p">👥 Hai người</div>
+    </div>
+    <div class="optrow" id="diffRow">
+      <div class="optbtn" data-d="2">Máy: Dễ</div>
+      <div class="optbtn on" data-d="3">Máy: Thường</div>
+    </div>
+    <div class="statusline">
+      <span class="turnpill turn-r" id="plTurn">Đỏ đi</span>
+      <span class="thinking" id="plThink"></span>
+    </div>
+    <div class="boardwrap" id="plBoard"></div>
+    <div class="chips" id="plChips"></div>
+    <div class="bigrow">
+      <button class="bigbtn line" id="plUndo">↩ Đi lại</button>
+      <button class="bigbtn solid" id="plNew">↺ Ván mới</button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="endOverlay">
+  <div class="obox">
+    <div class="big" id="endIcon">🏆</div>
+    <h2 id="endTitle">Kết thúc</h2>
+    <p id="endDesc"></p>
+    <button class="bigbtn solid" style="width:100%" id="endNew">Ván mới</button>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+/* Xiangqi rule engine — board[row][col], row 0 = black back rank (top), row 9 = red back rank.
+   Piece: {s:'r'|'b', t:'R'|'H'|'E'|'A'|'K'|'C'|'P'} or null. Red moves toward row 0. */
+"use strict";
+
+function initialBoard() {
+  var b = [];
+  for (var r = 0; r < 10; r++) { b.push([null,null,null,null,null,null,null,null,null]); }
+  var back = ["R","H","E","A","K","A","E","H","R"];
+  for (var c = 0; c < 9; c++) {
+    b[0][c] = { s: "b", t: back[c] };
+    b[9][c] = { s: "r", t: back[c] };
+  }
+  b[2][1] = { s: "b", t: "C" }; b[2][7] = { s: "b", t: "C" };
+  b[7][1] = { s: "r", t: "C" }; b[7][7] = { s: "r", t: "C" };
+  for (var c2 = 0; c2 < 9; c2 += 2) {
+    b[3][c2] = { s: "b", t: "P" };
+    b[6][c2] = { s: "r", t: "P" };
+  }
+  return b;
+}
+
+function inBoard(c, r) { return c >= 0 && c <= 8 && r >= 0 && r <= 9; }
+function inPalace(c, r, s) {
+  if (c < 3 || c > 5) return false;
+  return s === "r" ? (r >= 7 && r <= 9) : (r >= 0 && r <= 2);
+}
+function crossedRiver(r, s) { return s === "r" ? r <= 4 : r >= 5; }
+function ownSide(r, s) { return s === "r" ? r >= 5 : r <= 4; }
+
+/* pseudo-legal moves for piece at (c,r); returns array of [c,r,tc,tr] */
+function pieceMoves(board, c, r) {
+  var p = board[r][c];
+  if (!p) return [];
+  var s = p.s, out = [];
+  function add(tc, tr) {
+    if (!inBoard(tc, tr)) return;
+    var q = board[tr][tc];
+    if (q && q.s === s) return;
+    out.push([c, r, tc, tr]);
+  }
+  var fwd = s === "r" ? -1 : 1;
+  if (p.t === "R" || p.t === "C") {
+    var dirs = [[1,0],[-1,0],[0,1],[0,-1]];
+    for (var d = 0; d < 4; d++) {
+      var dc = dirs[d][0], dr = dirs[d][1];
+      var tc = c + dc, tr = r + dr, jumped = false;
+      while (inBoard(tc, tr)) {
+        var q = board[tr][tc];
+        if (p.t === "R") {
+          if (!q) { add(tc, tr); } else { add(tc, tr); break; }
+        } else { /* cannon */
+          if (!jumped) {
+            if (!q) { add(tc, tr); } else { jumped = true; }
+          } else {
+            if (q) { if (q.s !== s) add(tc, tr); break; }
+          }
+        }
+        tc += dc; tr += dr;
+      }
+    }
+  } else if (p.t === "H") {
+    var hops = [[1,2,0,1],[-1,2,0,1],[1,-2,0,-1],[-1,-2,0,-1],[2,1,1,0],[2,-1,1,0],[-2,1,-1,0],[-2,-1,-1,0]];
+    for (var i = 0; i < 8; i++) {
+      var lc = c + hops[i][2], lr = r + hops[i][3];
+      if (inBoard(lc, lr) && !board[lr][lc]) add(c + hops[i][0], r + hops[i][1]);
+    }
+  } else if (p.t === "E") {
+    var es = [[2,2],[2,-2],[-2,2],[-2,-2]];
+    for (var j = 0; j < 4; j++) {
+      var tc2 = c + es[j][0], tr2 = r + es[j][1];
+      if (!inBoard(tc2, tr2) || !ownSide(tr2, s)) continue;
+      var ec = c + es[j][0] / 2, er = r + es[j][1] / 2;
+      if (!board[er][ec]) add(tc2, tr2);
+    }
+  } else if (p.t === "A") {
+    var as = [[1,1],[1,-1],[-1,1],[-1,-1]];
+    for (var k = 0; k < 4; k++) {
+      var tc3 = c + as[k][0], tr3 = r + as[k][1];
+      if (inPalace(tc3, tr3, s)) add(tc3, tr3);
+    }
+  } else if (p.t === "K") {
+    var ks = [[1,0],[-1,0],[0,1],[0,-1]];
+    for (var m = 0; m < 4; m++) {
+      var tc4 = c + ks[m][0], tr4 = r + ks[m][1];
+      if (inPalace(tc4, tr4, s)) add(tc4, tr4);
+    }
+  } else if (p.t === "P") {
+    add(c, r + fwd);
+    if (crossedRiver(r, s)) { add(c + 1, r); add(c - 1, r); }
+  }
+  return out;
+}
+
+function findKing(board, s) {
+  for (var r = 0; r < 10; r++) for (var c = 3; c <= 5; c++) {
+    var p = board[r][c];
+    if (p && p.t === "K" && p.s === s) return [c, r];
+  }
+  return null;
+}
+
+/* is side s's king attacked (incl. flying general) */
+function inCheck(board, s) {
+  var kp = findKing(board, s);
+  if (!kp) return true;
+  var kc = kp[0], kr = kp[1], opp = s === "r" ? "b" : "r";
+  /* flying general */
+  var ok = findKing(board, opp);
+  if (ok && ok[0] === kc) {
+    var blocked = false;
+    var lo = Math.min(kr, ok[1]), hi = Math.max(kr, ok[1]);
+    for (var rr = lo + 1; rr < hi; rr++) if (board[rr][kc]) { blocked = true; break; }
+    if (!blocked) return true;
+  }
+  for (var r = 0; r < 10; r++) for (var c = 0; c < 9; c++) {
+    var p = board[r][c];
+    if (!p || p.s !== opp || p.t === "K") continue;
+    var mv = pieceMoves(board, c, r);
+    for (var i = 0; i < mv.length; i++) {
+      if (mv[i][2] === kc && mv[i][3] === kr) return true;
+    }
+  }
+  return false;
+}
+
+function applyMove(board, m) {
+  var cap = board[m[3]][m[2]];
+  board[m[3]][m[2]] = board[m[1]][m[0]];
+  board[m[1]][m[0]] = null;
+  return cap;
+}
+function undoMove(board, m, cap) {
+  board[m[1]][m[0]] = board[m[3]][m[2]];
+  board[m[3]][m[2]] = cap;
+}
+
+/* all fully legal moves for side s */
+function legalMoves(board, s) {
+  var out = [];
+  for (var r = 0; r < 10; r++) for (var c = 0; c < 9; c++) {
+    var p = board[r][c];
+    if (!p || p.s !== s) continue;
+    var mv = pieceMoves(board, c, r);
+    for (var i = 0; i < mv.length; i++) {
+      var cap = applyMove(board, mv[i]);
+      var bad = inCheck(board, s);
+      undoMove(board, mv[i], cap);
+      if (!bad) out.push(mv[i]);
+    }
+  }
+  return out;
+}
+
+function isLegal(board, s, m) {
+  var list = legalMoves(board, s);
+  for (var i = 0; i < list.length; i++) {
+    var x = list[i];
+    if (x[0] === m[0] && x[1] === m[1] && x[2] === m[2] && x[3] === m[3]) return true;
+  }
+  return false;
+}
+
+/* ---- Vietnamese notation ---- */
+var VN_LETTER = { R: "X", H: "M", E: "T", A: "S", K: "Tg", C: "P", P: "B" };
+function fileNum(c, s) { return s === "r" ? 9 - c : c + 1; }
+function moveNotation(board, m) {
+  var p = board[m[1]][m[0]];
+  if (!p) return "?";
+  var s = p.s, letter = VN_LETTER[p.t];
+  var f1 = fileNum(m[0], s), f2 = fileNum(m[2], s);
+  /* disambiguation: another same piece same file */
+  var prefix = "";
+  if (p.t !== "K" && p.t !== "A" && p.t !== "E") {
+    for (var r = 0; r < 10; r++) {
+      if (r === m[1]) continue;
+      var q = board[r][m[0]];
+      if (q && q.s === s && q.t === p.t) {
+        var iAmFront = s === "r" ? m[1] < r : m[1] > r;
+        prefix = iAmFront ? "t" : "s"; /* trước / sau */
+        break;
+      }
+    }
+  }
+  var op, num;
+  if (m[3] === m[1]) { op = "-"; num = f2; } /* bình */
+  else {
+    var fwd = s === "r" ? m[3] < m[1] : m[3] > m[1];
+    op = fwd ? "." : "/";
+    if (p.t === "H" || p.t === "E" || p.t === "A") num = f2;
+    else num = Math.abs(m[3] - m[1]);
+  }
+  return letter + (prefix ? prefix : "") + f1 + op + num;
+}
+
+/* ---- Simple AI: minimax + alpha-beta ---- */
+var VALS = { R: 100, C: 48, H: 45, E: 12, A: 12, P: 10, K: 10000 };
+function evalBoard(board) {
+  /* positive = good for red */
+  var score = 0;
+  for (var r = 0; r < 10; r++) for (var c = 0; c < 9; c++) {
+    var p = board[r][c];
+    if (!p) continue;
+    var v = VALS[p.t];
+    if (p.t === "P" && crossedRiver(r, p.s)) v += 8;
+    if (p.t === "P" && c >= 3 && c <= 5 && crossedRiver(r, p.s)) v += 4;
+    if (p.t === "H" || p.t === "C") {
+      if (c >= 2 && c <= 6) v += 2;
+    }
+    score += p.s === "r" ? v : -v;
+  }
+  return score;
+}
+
+function search(board, depth, alpha, beta, side) {
+  if (depth === 0) return evalBoard(board);
+  var moves = legalMoves(board, side);
+  if (moves.length === 0) return side === "r" ? -20000 + (3 - depth) : 20000 - (3 - depth);
+  /* order: captures first */
+  moves.sort(function (a, b) {
+    var ca = board[a[3]][a[2]] ? VALS[board[a[3]][a[2]].t] : 0;
+    var cb = board[b[3]][b[2]] ? VALS[board[b[3]][b[2]].t] : 0;
+    return cb - ca;
+  });
+  var opp = side === "r" ? "b" : "r";
+  if (side === "r") {
+    var best = -Infinity;
+    for (var i = 0; i < moves.length; i++) {
+      var cap = applyMove(board, moves[i]);
+      var v = search(board, depth - 1, alpha, beta, opp);
+      undoMove(board, moves[i], cap);
+      if (v > best) best = v;
+      if (v > alpha) alpha = v;
+      if (alpha >= beta) break;
+    }
+    return best;
+  } else {
+    var best2 = Infinity;
+    for (var j = 0; j < moves.length; j++) {
+      var cap2 = applyMove(board, moves[j]);
+      var v2 = search(board, depth - 1, alpha, beta, opp);
+      undoMove(board, moves[j], cap2);
+      if (v2 < best2) best2 = v2;
+      if (v2 < beta) beta = v2;
+      if (alpha >= beta) break;
+    }
+    return best2;
+  }
+}
+
+function bestMove(board, side, depth) {
+  var moves = legalMoves(board, side);
+  if (moves.length === 0) return null;
+  moves.sort(function (a, b) {
+    var ca = board[a[3]][a[2]] ? VALS[board[a[3]][a[2]].t] : 0;
+    var cb = board[b[3]][b[2]] ? VALS[board[b[3]][b[2]].t] : 0;
+    return cb - ca;
+  });
+  var opp = side === "r" ? "b" : "r";
+  var bestM = null, bestV = side === "r" ? -Infinity : Infinity;
+  var alpha = -Infinity, beta = Infinity;
+  for (var i = 0; i < moves.length; i++) {
+    var cap = applyMove(board, moves[i]);
+    var v = search(board, depth - 1, alpha, beta, opp);
+    undoMove(board, moves[i], cap);
+    v += (Math.random() - 0.5) * 2; /* tiny jitter for variety */
+    if (side === "r" ? v > bestV : v < bestV) { bestV = v; bestM = moves[i]; }
+    if (side === "r") { if (v > alpha) alpha = v; } else { if (v < beta) beta = v; }
+  }
+  return bestM;
+}
+
+if (typeof module !== "undefined") {
+  module.exports = { initialBoard: initialBoard, legalMoves: legalMoves, isLegal: isLegal, inCheck: inCheck, applyMove: applyMove, undoMove: undoMove, moveNotation: moveNotation, bestMove: bestMove, evalBoard: evalBoard, findKing: findKing };
+}
+/* Thư viện khai cuộc — mỗi nước: m=[cột đi, hàng đi, cột đến, hàng đến], a = chú giải */
+"use strict";
+var OPENINGS = [
+{
+  id: "phao-dau-bpm",
+  name: "Pháo Đầu vs Bình Phong Mã (Hiện đại)",
+  cn: "中炮对屏风马",
+  side: "do", level: "Cơ bản",
+  desc: "Trận đấu phổ biến nhất trong cờ Tướng hiện đại. Đỏ dùng Pháo đầu tấn công trung lộ, Đen dựng hai Mã như bức bình phong che Tốt đầu, phòng thủ chắc chắn rồi phản công.",
+  idea: "Đỏ: chiếm trung lộ, ra Xe nhanh gây sức ép cánh trái Đen. Đen: giữ vững trung lộ bằng hai Mã, đẩy Tốt 7 mở đường Mã, dùng Pháo 9 đuổi Xe giành lại nhịp.",
+  moves: [
+    { m: [7,7,4,7], a: "Pháo đầu — chiếm trung lộ, nhắm thẳng Tốt đầu và Tướng Đen. Nước khai cuộc tấn công kinh điển nhất." },
+    { m: [7,0,6,2], a: "Mã nhảy lên che Tốt đầu — nước đầu tiên của hệ thống Bình Phong Mã." },
+    { m: [7,9,6,7], a: "Lên Mã bảo vệ Pháo đầu và chuẩn bị ra Xe." },
+    { m: [8,0,7,0], a: "Ra Xe đối đầu với Xe Đỏ sắp xuất hiện — tranh tiên trên cột 8." },
+    { m: [8,9,7,9], a: "Xe trực — ra Xe nhanh nhất, đối mặt Xe Đen trên cùng cột." },
+    { m: [1,0,2,2], a: "Mã thứ hai nhảy lên, hoàn thành thế Bình Phong Mã: hai Mã cùng bảo vệ Tốt đầu." },
+    { m: [2,6,2,5], a: "Đẩy Tốt 7 mở đường cho Mã trái sau này — nước chờ linh hoạt." },
+    { m: [6,3,6,4], a: "Đen cũng đẩy Tốt 7 mở đường Mã, đồng thời kiểm soát điểm qua hà của Mã Đỏ." },
+    { m: [7,9,7,3], a: "Xe qua hà — chiếm tuyến tấn công, đè lên đầu Mã Đen, gây sức ép lớn." },
+    { m: [7,2,8,2], a: "Bình Pháo ra biên, nhường đường và chuẩn bị đuổi Xe Đỏ — kế hoạch phản kích chủ đạo." },
+    { m: [7,3,6,3], a: "Xe ép sát cột 3, đè đầu Mã và dòm Tốt 7 của Đen." },
+    { m: [8,2,8,1], a: "Pháo lùi một bước — chuẩn bị bình sang cột 7 đuổi Xe, đòn phản công đặc trưng." },
+    { m: [1,9,2,7], a: "Đỏ bình tĩnh lên nốt Mã trái, hoàn thiện phát triển." },
+    { m: [3,0,4,1], a: "Lên Sĩ củng cố trung lộ — Đen ưu tiên an toàn trước khi phản công." },
+    { m: [4,6,4,5], a: "Đẩy Tốt đầu — mở đường tấn công trung lộ, phối hợp với Pháo đầu." },
+    { m: [8,1,6,1], a: "Pháo bình 7 — mượn Mã làm ngòi tấn công Xe Đỏ, buộc Xe phải chạy." },
+    { m: [6,3,5,3], a: "Xe tránh sang cột 4, vẫn giữ vị trí tấn công qua hà." },
+    { m: [2,0,4,2], a: "Phi Tượng lên che trung lộ, liên kết phòng thủ." },
+    { m: [2,7,3,5], a: "Mã nhảy lên hà — Mã bàn hà rất mạnh, phối hợp Xe Pháo dọa đánh vào cánh Đen." },
+    { m: [7,0,7,5], a: "Xe Đen tiến sát hà đáp trả — hai bên hoàn thành khai cuộc, thế trận cân bằng và giàu biến hóa." }
+  ]
+},
+{
+  id: "qua-ha-xa",
+  name: "Trung Pháo Quá Hà Xa vs Bình Phong Mã",
+  cn: "中炮过河车对屏风马",
+  side: "do", level: "Trung cấp",
+  desc: "Biến quyết liệt của Pháo đầu: Đỏ cho Xe qua hà sớm ngay nước thứ 4 để đè ép quân Đen trước khi Đen kịp triển khai đầy đủ.",
+  idea: "Đỏ: Xe qua hà sớm chiếm không gian, kết hợp đẩy Tốt đầu phá trung lộ. Đen: dùng Pháo biên đuổi Xe, đẩy Tốt 7 phản kích giành lại quyền chủ động.",
+  moves: [
+    { m: [7,7,4,7], a: "Pháo đầu chiếm trung lộ." },
+    { m: [7,0,6,2], a: "Đen lên Mã theo hệ thống Bình Phong Mã." },
+    { m: [7,9,6,7], a: "Lên Mã giữ Pháo, chuẩn bị ra Xe." },
+    { m: [8,0,7,0], a: "Đen ra Xe tranh cột." },
+    { m: [8,9,7,9], a: "Ra Xe trực." },
+    { m: [1,0,2,2], a: "Hoàn thành thế Bình Phong Mã." },
+    { m: [7,9,7,3], a: "Xe qua hà ngay! Đặc trưng của trận này — chiếm tuyến, uy hiếp cả hai cánh Đen." },
+    { m: [6,3,6,4], a: "Đẩy Tốt 7 — vừa mở đường Mã vừa chuẩn bị đuổi Xe Đỏ." },
+    { m: [1,9,2,7], a: "Lên nốt Mã trái, phát triển cân đối." },
+    { m: [7,2,8,2], a: "Pháo bình ra biên, khởi động kế hoạch đuổi Xe." },
+    { m: [7,3,6,3], a: "Xe áp sát cột 3 đè đầu Mã Đen." },
+    { m: [8,2,8,1], a: "Pháo thoái một — sắp bình sang cột 7 tấn công Xe." },
+    { m: [4,6,4,5], a: "Đẩy Tốt đầu lần một — bắt đầu kế hoạch phá trung lộ." },
+    { m: [3,0,4,1], a: "Lên Sĩ giữ vững trung tâm." },
+    { m: [4,5,4,4], a: "Đẩy Tốt đầu lần hai — Tốt qua hà, sức ép trung lộ tăng mạnh." },
+    { m: [8,1,6,1], a: "Pháo bình 7, mượn ngòi Mã bắt Xe — Đỏ buộc phải di chuyển Xe." },
+    { m: [6,3,5,3], a: "Xe né sang cột 4, giữ thế qua hà." },
+    { m: [6,4,6,5], a: "Tốt 7 qua hà phản kích — Đen đổi lại không gian ở cánh phải Đỏ." },
+    { m: [5,3,5,1], a: "Xe thọc sâu xuống tuyến hai dọa quấy phá hậu phương Đen." },
+    { m: [1,2,1,6], a: "Pháo 2 qua hà đáp trả — đôi bên đối công gay gắt, ai chính xác hơn sẽ thắng." }
+  ]
+},
+{
+  id: "ngu-that-phao",
+  name: "Ngũ Thất Pháo vs Bình Phong Mã",
+  cn: "五七炮对屏风马",
+  side: "do", level: "Trung cấp",
+  desc: "Đỏ đặt hai Pháo ở lộ 5 và lộ 7 (Ngũ Thất Pháo), tạo thế tấn công hai cánh phối hợp — vừa ép trung lộ vừa nhắm vào Mã 3 của Đen.",
+  idea: "Đỏ: Pháo 7 kiềm chế Mã 3 Đen, Mã biên + Xe trái tấn công cánh. Đen: củng cố trung lộ, dùng Pháo tuần hà linh hoạt phòng ngự phản công.",
+  moves: [
+    { m: [7,7,4,7], a: "Pháo đầu — mở màn quen thuộc." },
+    { m: [7,0,6,2], a: "Đen lên Mã cánh trái." },
+    { m: [7,9,6,7], a: "Lên Mã phải." },
+    { m: [8,0,7,0], a: "Ra Xe cột 8." },
+    { m: [8,9,7,9], a: "Xe trực đối đầu." },
+    { m: [1,0,2,2], a: "Hoàn thành Bình Phong Mã." },
+    { m: [2,6,2,5], a: "Đẩy Tốt 7 mở đường Mã trái." },
+    { m: [6,3,6,4], a: "Đen đẩy Tốt 7 đáp lại." },
+    { m: [1,7,2,7], a: "Pháo bình 7 — hình thành Ngũ Thất Pháo, ngắm thẳng Mã 3 và Tượng Đen." },
+    { m: [2,0,4,2], a: "Phi Tượng che trung lộ, hóa giải bớt sức ép của Pháo đầu." },
+    { m: [1,9,0,7], a: "Mã nhảy ra biên — nhường đường cho Xe trái xuất trận theo cột 8." },
+    { m: [3,0,4,1], a: "Lên Sĩ, thế thủ Đen thêm vững." },
+    { m: [0,9,1,9], a: "Xe trái ra cột 8 — cả hai Xe Đỏ đều đã vào cuộc." },
+    { m: [7,2,7,4], a: "Pháo tuần hà — vừa giữ Tốt vừa sẵn sàng dời ngang tạo ngòi chiến thuật." },
+    { m: [1,9,1,3], a: "Xe tiến sâu xuống tuyến Tốt, quấy rối hậu phương Đen." },
+    { m: [1,2,0,2], a: "Pháo né sang biên tránh Xe — thế trận Ngũ Thất Pháo giằng co từng nước, hai cánh đều nóng bỏng." }
+  ]
+},
+{
+  id: "ngu-luc-phao",
+  name: "Ngũ Lục Pháo vs Bình Phong Mã",
+  cn: "五六炮对屏风马",
+  side: "do", level: "Trung cấp",
+  desc: "Đỏ đặt Pháo ở lộ 5 và lộ 6. So với Ngũ Thất Pháo, thế trận này thiên về vững chắc: Pháo 6 vừa thủ vừa hỗ trợ tấn công trung lộ và cánh phải.",
+  idea: "Đỏ: cấu trúc cân bằng công thủ, Xe Mã phối hợp ép dần. Đen: phi Tượng, lên Sĩ giữ chắc rồi tìm cơ hội phản kích ở cánh.",
+  moves: [
+    { m: [7,7,4,7], a: "Pháo đầu chiếm trung." },
+    { m: [7,0,6,2], a: "Mã che Tốt đầu." },
+    { m: [7,9,6,7], a: "Lên Mã phải." },
+    { m: [8,0,7,0], a: "Ra Xe." },
+    { m: [8,9,7,9], a: "Xe trực." },
+    { m: [1,0,2,2], a: "Bình Phong Mã hoàn chỉnh." },
+    { m: [6,6,6,5], a: "Đẩy Tốt 3 — mở đường Mã phải, hướng phát triển đặc trưng của Ngũ Lục Pháo." },
+    { m: [2,3,2,4], a: "Đen đẩy Tốt 3 đáp lại, mở đường Mã 3." },
+    { m: [1,7,3,7], a: "Pháo bình 6 — hình thành Ngũ Lục Pháo, củng cố cánh phải và trợ chiến trung lộ." },
+    { m: [6,0,4,2], a: "Phi Tượng 7 che trung lộ." },
+    { m: [1,9,2,7], a: "Lên Mã trái, đội hình Đỏ liền lạc." },
+    { m: [5,0,4,1], a: "Lên Sĩ 6 — bộ khung Sĩ Tượng của Đen hoàn chỉnh." },
+    { m: [0,9,1,9], a: "Xe trái ra cột 8, hai Xe thông suốt." },
+    { m: [6,3,6,4], a: "Đen đẩy nốt Tốt 7, hai Mã đều có đường tiến." },
+    { m: [1,9,1,5], a: "Xe tuần hà — kiểm soát tuyến sông, sẵn sàng dời sang cánh gây sức ép." },
+    { m: [7,2,7,4], a: "Pháo Đen cũng tuần hà đối trọng — thế trận giằng co chiến lược." }
+  ]
+},
+{
+  id: "thuan-phao",
+  name: "Thuận Pháo (Trực Xa vs Hoành Xa)",
+  cn: "顺炮直车对横车",
+  side: "do", level: "Cơ bản",
+  desc: "Hai bên cùng vào Pháo đầu về cùng một phía (thuận chiều). Trận đấu cổ điển từ thời Quất Trung Bí, thiên về đối công nhanh, tốc độ ra quân quyết định tất cả.",
+  idea: "Đỏ: ra Xe trực nhanh chiếm cột mở. Đen: dùng Xe hoành linh hoạt chuyển cánh. Cả hai bỏ ngỏ trung lộ để đua tốc độ tấn công.",
+  moves: [
+    { m: [7,7,4,7], a: "Pháo đầu." },
+    { m: [7,2,4,2], a: "Đen cũng vào Pháo đầu cùng phía — hình thành trận Thuận Pháo." },
+    { m: [7,9,6,7], a: "Lên Mã giữ Pháo." },
+    { m: [7,0,6,2], a: "Đen lên Mã tương ứng." },
+    { m: [8,9,7,9], a: "Xe trực — ra Xe nhanh nhất có thể." },
+    { m: [8,0,8,1], a: "Xe hoành! Đen đưa Xe lên một bước để dời ngang sang cánh — linh hồn của thế trận này." },
+    { m: [1,9,2,7], a: "Đỏ lên nốt Mã trái." },
+    { m: [8,1,3,1], a: "Xe bình 4 — Xe hoành chiếm lộ Sĩ, sẵn sàng tấn công cánh phải Đỏ." },
+    { m: [6,6,6,5], a: "Đẩy Tốt 3 mở đường Mã phải." },
+    { m: [1,0,2,2], a: "Đen lên nốt Mã, hai bên phát triển thần tốc." },
+    { m: [7,9,7,3], a: "Xe qua hà tạo sức ép — Đỏ tận dụng lợi thế ra Xe trước." },
+    { m: [2,3,2,4], a: "Đen đẩy Tốt 3 mở đường phản công." },
+    { m: [7,3,6,3], a: "Xe ăn Tốt 7! Đỏ thu lợi nhỏ nhưng phải cẩn thận vì Xe hơi xa nhà." },
+    { m: [3,1,3,4], a: "Xe Đen chiếm tuyến hà, kiểm soát không gian đáp trả." },
+    { m: [2,6,2,5], a: "Đẩy Tốt 7 mở đường Mã trái, củng cố thế trận." },
+    { m: [0,0,1,0], a: "Xe phải của Đen cũng ra trận — đôi bên dàn quân xong, cuộc chiến bắt đầu." }
+  ]
+},
+{
+  id: "nghich-phao",
+  name: "Nghịch Pháo (Liệt Pháo)",
+  cn: "列炮",
+  side: "den", level: "Trung cấp",
+  desc: "Đen vào Pháo đầu ngược phía với Đỏ. Hai khẩu Pháo giữa bàn chĩa vào nhau ở hai cánh khác nhau tạo thế đối công cực kỳ sắc bén.",
+  idea: "Cả hai bên đều tấn công trung lộ từ hai hướng ngược nhau. Ai chậm một nhịp trong việc ra Xe và phối hợp quân sẽ bị đòn trước.",
+  moves: [
+    { m: [7,7,4,7], a: "Pháo đầu." },
+    { m: [1,2,4,2], a: "Đen vào Pháo đầu phía ngược lại — hình thành trận Nghịch Pháo (Liệt Pháo)." },
+    { m: [7,9,6,7], a: "Lên Mã giữ trung." },
+    { m: [1,0,2,2], a: "Đen lên Mã phía Pháo vừa dời đi." },
+    { m: [8,9,7,9], a: "Ra Xe trực." },
+    { m: [0,0,1,0], a: "Đen ra Xe cột 2 — đối xứng gương với Đỏ." },
+    { m: [1,9,2,7], a: "Lên nốt Mã trái." },
+    { m: [7,0,6,2], a: "Đen cũng hoàn thiện cặp Mã." },
+    { m: [7,9,7,3], a: "Xe qua hà trước — lợi thế đi tiên bắt đầu phát huy." },
+    { m: [1,0,1,6], a: "Xe Đen cũng lập tức qua hà — hai Xe cùng xâm nhập, thế cờ căng như dây đàn." },
+    { m: [7,3,6,3], a: "Xe ăn Tốt 7, phá cấu trúc Tốt của Đen." },
+    { m: [1,6,2,6], a: "Xe Đen ăn lại Tốt 7 của Đỏ — ăn miếng trả miếng!" },
+    { m: [0,9,0,8], a: "Xe trái Đỏ lên hoành, chuẩn bị dời sang trợ chiến." },
+    { m: [8,0,8,1], a: "Xe trái Đen cũng hoành theo — đối xứng đến kỳ lạ." },
+    { m: [0,8,5,8], a: "Xe bình 4 chiếm lộ Sĩ — sẵn sàng đánh thẳng vào yếu điểm cung Tướng Đen." },
+    { m: [8,1,3,1], a: "Đen đáp lại y hệt. Thế trận đối công thuần túy: bên nào ra đòn chính xác hơn sẽ định đoạt ván cờ." }
+  ]
+},
+{
+  id: "phan-cung-ma",
+  name: "Pháo Đầu vs Phản Cung Mã",
+  cn: "中炮对反宫马",
+  side: "den", level: "Nâng cao",
+  desc: "Đen kẹp một khẩu Pháo giữa hai Mã (Pháo sĩ giác) tạo thế Phản Cung Mã — hệ thống phòng thủ số một của kỳ vương Hồ Vinh Hoa, mềm dẻo và đầy phản đòn.",
+  idea: "Đen: Pháo 6 khống chế điểm nhảy Mã của Đỏ, thế thủ co giãn. Đỏ: tấn công vào điểm yếu tạm thời — Mã 8 chậm phát triển và cánh trái Đen hơi mỏng.",
+  moves: [
+    { m: [7,7,4,7], a: "Pháo đầu." },
+    { m: [1,0,2,2], a: "Đen lên Mã phải trước." },
+    { m: [7,9,6,7], a: "Lên Mã." },
+    { m: [7,2,5,2], a: "Pháo bình 6 vào góc Sĩ — nước cờ định hình Phản Cung Mã, khống chế lộ 6." },
+    { m: [8,9,7,9], a: "Ra Xe trực." },
+    { m: [7,0,6,2], a: "Đen lên nốt Mã trái, hai Mã kẹp Pháo — thế Phản Cung Mã hoàn chỉnh." },
+    { m: [6,6,6,5], a: "Đẩy Tốt 3 — tấn công đúng vào cánh Mã vừa lên của Đen." },
+    { m: [2,3,2,4], a: "Đen đẩy Tốt 3 giành không gian cho Mã phải." },
+    { m: [1,9,0,7], a: "Mã biên — tránh để Pháo 6 của Đen bắt chết điểm nhảy Mã 7." },
+    { m: [2,0,4,2], a: "Phi Tượng che trung lộ, thế thủ nhiều tầng." },
+    { m: [0,9,1,9], a: "Xe trái ra cột 8." },
+    { m: [0,0,1,0], a: "Đen ra Xe cột 2 đối trọng." },
+    { m: [7,9,7,5], a: "Xe tiến chiếm tuyến, dòm ngó Tốt cánh Đen." },
+    { m: [3,0,4,1], a: "Lên Sĩ — Đen bình tĩnh củng cố, chờ Đỏ sơ hở để tung phản đòn đặc trưng của Phản Cung Mã." },
+    { m: [2,6,2,5], a: "Đỏ đẩy Tốt 7 giành thêm không gian." },
+    { m: [6,3,6,4], a: "Đen đáp Tốt 7 — khai cuộc hoàn tất, trung cuộc sẽ xoay quanh cuộc chiến giành lộ 6." }
+  ]
+},
+{
+  id: "don-de-ma",
+  name: "Pháo Đầu vs Đơn Đề Mã",
+  cn: "中炮对单提马",
+  side: "den", level: "Trung cấp",
+  desc: "Đen phòng thủ bằng một Mã chính giữa và một Mã biên (đơn đề). Thế trận cổ điển, nhường trung lộ để đổi lấy cấu trúc linh hoạt và phản công cánh.",
+  idea: "Đen: Mã biên giải phóng cột cho Xe, Pháo 7 phòng ngự chờ thời. Đỏ: tận dụng trung lộ thoáng để tấn công nhanh vào Tốt đầu.",
+  moves: [
+    { m: [7,7,4,7], a: "Pháo đầu." },
+    { m: [1,0,2,2], a: "Đen lên Mã phải." },
+    { m: [7,9,6,7], a: "Lên Mã." },
+    { m: [7,0,8,2], a: "Mã nhảy ra biên — nước đặc trưng của Đơn Đề Mã, nhường cột 8 cho Xe." },
+    { m: [8,9,7,9], a: "Ra Xe trực." },
+    { m: [7,2,6,2], a: "Pháo bình 7 trấn giữ, bảo vệ điểm yếu trước Xe Đỏ." },
+    { m: [1,9,2,7], a: "Lên nốt Mã trái." },
+    { m: [8,0,7,0], a: "Đen ra Xe đối đầu — nhờ Mã biên, Xe ra rất thông thoáng." },
+    { m: [2,6,2,5], a: "Đẩy Tốt 7 mở đường Mã." },
+    { m: [2,0,4,2], a: "Phi Tượng giữ trung lộ." },
+    { m: [0,9,0,8], a: "Xe trái hoành — chuẩn bị dời sang lộ giữa hoặc lộ 6 tăng viện." },
+    { m: [3,0,4,1], a: "Lên Sĩ hoàn chỉnh thế thủ." },
+    { m: [0,8,3,8], a: "Xe bình 6 chiếm lộ Sĩ — hướng tấn công nguy hiểm nhất khi Đen thủ Đơn Đề Mã." },
+    { m: [0,0,1,0], a: "Xe phải Đen ra cột 2, sẵn sàng đổi quân giảm sức ép." },
+    { m: [4,6,4,5], a: "Đẩy Tốt đầu — khoét vào trung lộ, điểm mạnh của Đỏ trong trận này." },
+    { m: [8,3,8,4], a: "Đen đẩy Tốt biên khởi động Mã biên — nguồn phản công tiềm tàng của Đơn Đề Mã." }
+  ]
+},
+{
+  id: "uyen-uong-phao",
+  name: "Pháo Đầu vs Uyên Ương Pháo",
+  cn: "中炮对鸳鸯炮",
+  side: "den", level: "Nâng cao",
+  desc: "Đen dồn hai khẩu Pháo về cùng một cột như đôi uyên ương quấn quýt — thế trận lạ, giăng bẫy Xe Đỏ và phản kích bất ngờ.",
+  idea: "Đen: nhử Xe Đỏ vào sâu rồi dùng cặp Pháo cùng Xe hoành vây bắt. Đỏ: phát triển thận trọng, không tham ăn để tránh sập bẫy.",
+  moves: [
+    { m: [7,7,4,7], a: "Pháo đầu." },
+    { m: [1,0,2,2], a: "Đen lên Mã phải." },
+    { m: [7,9,6,7], a: "Lên Mã." },
+    { m: [8,0,8,1], a: "Xe hoành — bước chuẩn bị đầu tiên của Uyên Ương Pháo." },
+    { m: [8,9,7,9], a: "Ra Xe trực." },
+    { m: [7,0,8,2], a: "Mã nhảy biên bảo vệ góc trái, đồng thời dọn chỗ cho kế hoạch Pháo trùng sắp tới." },
+    { m: [1,9,2,7], a: "Đỏ cứ bình tĩnh phát triển." },
+    { m: [7,2,7,1], a: "Pháo thoái một! Nước cờ lạ mắt — chuẩn bị kéo Pháo về cùng cột với khẩu kia." },
+    { m: [7,9,7,3], a: "Xe qua hà chiếm thế, thăm dò trận địa lạ của Đen." },
+    { m: [7,1,1,1], a: "Pháo bình về cột 2 — hai Pháo Đen chồng lên nhau: thế Uyên Ương Pháo ra đời!" },
+    { m: [2,6,2,5], a: "Đẩy Tốt 7, mở đường Mã và cho Xe thêm lối thoát." },
+    { m: [8,1,3,1], a: "Xe hoành dời sang lộ 4 — cánh quân thứ hai của kế hoạch vây ép." },
+    { m: [5,9,4,8], a: "Đỏ lên Sĩ chắc chắn, không cho Đen cơ hội đánh úp trung lộ." },
+    { m: [6,0,4,2], a: "Phi Tượng 7 củng cố phòng tuyến." },
+    { m: [4,6,4,5], a: "Đẩy Tốt đầu tăng sức ép trung lộ." },
+    { m: [5,0,4,1], a: "Lên Sĩ 6 hoàn thiện phòng tuyến — trận Uyên Ương Pháo dàn xong, trung cuộc sẽ đầy cạm bẫy." }
+  ]
+},
+{
+  id: "quy-boi-phao",
+  name: "Pháo Đầu vs Quy Bối Pháo",
+  cn: "中炮对龟背炮",
+  side: "den", level: "Nâng cao",
+  desc: "Đen rút Pháo về sát lưng Tướng như mai rùa (quy bối) rồi chuyển sang cột 8 lập thế Pháo chồng đánh úp Xe Đỏ — khai cuộc kỳ hình đầy chất phục kích.",
+  idea: "Đen: hy sinh tốc độ đổi lấy đòn đánh úp cột 8, khiến Xe Đỏ không dám ra tự nhiên. Đỏ: đổi hướng ra Xe trái và dùng Xe hoành để hóa giải.",
+  moves: [
+    { m: [7,7,4,7], a: "Pháo đầu." },
+    { m: [1,0,2,2], a: "Đen lên Mã phải." },
+    { m: [7,9,6,7], a: "Lên Mã." },
+    { m: [1,2,1,1], a: "Pháo thoái một — bước đầu của Quy Bối Pháo, lùi về sát lưng như mai rùa." },
+    { m: [1,9,2,7], a: "Đỏ lên nốt Mã trái, chưa vội ra Xe phải." },
+    { m: [7,0,6,2], a: "Lên Mã trái trước — dọn sẵn đường cho khẩu Pháo kéo sang và Xe ra chống lưng." },
+    { m: [0,9,1,9], a: "Đỏ ra Xe trái, thăm dò ý đồ kỳ lạ của Đen." },
+    { m: [1,1,7,1], a: "Pháo bình 8! Hai Pháo Đen chồng cột 8 — Xe phải của Đỏ mà ra cột này sẽ bị đánh úp ngay." },
+    { m: [8,9,8,8], a: "Xe phải lên hoành — cách an toàn duy nhất để kích hoạt Xe này." },
+    { m: [8,0,7,0], a: "Xe ra chống lưng cặp Pháo — khối Xe-Pháo-Pháo cột 8 là trái tim của Quy Bối Pháo." },
+    { m: [8,8,5,8], a: "Xe hoành bình về lộ 4, chiếm đường tiến công cạnh cung Tướng Đen." },
+    { m: [6,0,4,2], a: "Đen phi Tượng củng cố trung lộ." },
+    { m: [2,6,2,5], a: "Đẩy Tốt 7 mở đường cho Mã trái nhảy lên hà." },
+    { m: [5,0,4,1], a: "Lên Sĩ giữ cung Tướng." },
+    { m: [2,7,3,5], a: "Mã nhảy lên hà chiếm thế — Đỏ hoàn tất phát triển với thế trận thoáng hơn." },
+    { m: [6,3,6,4], a: "Đen đẩy Tốt 7 mở đường Mã trái — Quy Bối Pháo giữ nguyên sức ép ngầm trên cột 8, chờ thời cơ phản công." }
+  ]
+},
+{
+  id: "phi-tuong-cuc",
+  name: "Phi Tượng Cục",
+  cn: "飞相局",
+  side: "do", level: "Cơ bản",
+  desc: "Đỏ mở màn bằng nước phi Tượng che Tốt đầu — khai cuộc thiên về thế trận, mềm mại mà sâu sắc, được giới cao thủ hiện đại rất ưa chuộng.",
+  idea: "Đỏ: nhường tiên thủ trước, giữ cấu trúc hoàn hảo rồi phản công khi Đen quá đà. Đen: thường vào Pháo đầu ngay để trừng phạt sự chậm rãi.",
+  moves: [
+    { m: [6,9,4,7], a: "Phi Tượng — che Tốt đầu, nước mở màn hiền hòa nhưng ẩn chứa nội lực thế trận." },
+    { m: [7,2,4,2], a: "Đen lập tức vào Pháo đầu — cách đối phó tích cực nhất với Phi Tượng Cục." },
+    { m: [1,9,2,7], a: "Lên Mã trái bảo vệ trung lộ." },
+    { m: [7,0,6,2], a: "Đen lên Mã giữ Pháo." },
+    { m: [0,9,1,9], a: "Ra Xe trái sớm — cột 8 là bàn đạp chính của Đỏ trong trận này." },
+    { m: [8,0,7,0], a: "Đen ra Xe đối đầu." },
+    { m: [7,9,6,7], a: "Lên nốt Mã phải, đội hình Đỏ cực kỳ chắc chắn." },
+    { m: [1,0,2,2], a: "Đen hoàn thiện cặp Mã." },
+    { m: [6,6,6,5], a: "Đẩy Tốt 3 giành không gian cánh phải." },
+    { m: [0,0,0,1], a: "Xe phải Đen lên hoành, tìm đường sang trung lộ." },
+    { m: [5,9,4,8], a: "Lên Sĩ — bộ khung Sĩ Tượng liền lạc, đặc sản của Phi Tượng Cục." },
+    { m: [0,1,5,1], a: "Xe hoành chiếm lộ 6, dòm vào cung Tướng Đỏ." },
+    { m: [7,7,7,5], a: "Pháo tuần hà — phòng tuyến sông nước chắc chắn, sẵn sàng dời ngang làm ngòi." },
+    { m: [6,3,6,4], a: "Đen đẩy Tốt 7 hoạt động Mã." },
+    { m: [8,9,7,9], a: "Xe phải ra nốt — Đỏ hoàn thành khai cuộc với thế trận không một kẽ hở." },
+    { m: [3,0,4,1], a: "Đen lên Sĩ. Trận Phi Tượng đi vào trung cuộc giằng co — đúng phong cách 'lấy nhu thắng cương'." }
+  ]
+},
+{
+  id: "tien-nhan-chi-lo",
+  name: "Tiên Nhân Chỉ Lộ (Đối Binh Cục)",
+  cn: "仙人指路对卒底炮",
+  side: "do", level: "Cơ bản",
+  desc: "'Tiên ông chỉ đường' — Đỏ đẩy Tốt 3 thăm dò, giấu kín ý đồ. Đen đáp Tốt 3 tạo Đối Binh Cục. Khai cuộc mềm dẻo, dễ chuyển hóa về nhiều trận hình khác.",
+  idea: "Đỏ: nước Tốt thăm dò giữ mọi lựa chọn mở, sau đó chuyển về Pháo đầu. Đen: đối Tốt giành cân bằng không gian ngay từ đầu.",
+  moves: [
+    { m: [6,6,6,5], a: "Tiên nhân chỉ lộ — đẩy Tốt 3 mở đường Mã, nước thăm dò kín đáo khiến Đen khó đoán ý đồ." },
+    { m: [2,3,2,4], a: "Đen đối Tốt 3 — hình thành Đối Binh Cục, cân bằng không gian tức thì." },
+    { m: [7,7,4,7], a: "Chuyển về Pháo đầu — lộ rõ ý đồ: nước Tốt trước đó đã chuẩn bị sẵn đường Mã." },
+    { m: [7,0,6,2], a: "Đen lên Mã che Tốt đầu." },
+    { m: [7,9,6,7], a: "Lên Mã phải." },
+    { m: [8,0,7,0], a: "Đen ra Xe." },
+    { m: [8,9,7,9], a: "Ra Xe trực đối đầu." },
+    { m: [1,0,2,2], a: "Đen hoàn thành Bình Phong Mã." },
+    { m: [1,9,0,7], a: "Mã biên — giữ đường Xe trái thông suốt." },
+    { m: [2,0,4,2], a: "Phi Tượng củng cố trung lộ." },
+    { m: [1,7,2,7], a: "Pháo bình 7 dòm Mã 3 và Tượng Đen — tận dụng cột Tốt đã mở." },
+    { m: [0,0,1,0], a: "Xe phải Đen ra cột 2." },
+    { m: [0,9,1,9], a: "Xe trái Đỏ ra cột 8 — hai bên dàn trận cân não." },
+    { m: [1,2,1,6], a: "Pháo 2 qua hà — Đen chủ động khiêu chiến, đặt Pháo vào lòng đất địch." },
+    { m: [4,6,4,5], a: "Đỏ đẩy Tốt đầu phản ứng trung lộ." },
+    { m: [3,0,4,1], a: "Đen lên Sĩ. Đối Binh Cục khép lại giai đoạn khai cuộc với thế trận cân bằng, giàu chiến lược." }
+  ]
+},
+{
+  id: "khoi-ma-cuc",
+  name: "Khởi Mã Cục",
+  cn: "起马局",
+  side: "do", level: "Cơ bản",
+  desc: "Đỏ mở màn bằng nước lên Mã — linh hoạt, tránh lý thuyết Pháo đầu đồ sộ. Mã lên trước giữ trung lộ và chờ xem cách bố trận của Đen rồi mới định hình.",
+  idea: "Đỏ: phát triển tự nhiên, giữ thế cân bằng rồi tùy cơ ứng biến. Đen: đẩy Tốt 7 giành không gian là cách đáp phổ biến nhất.",
+  moves: [
+    { m: [7,9,6,7], a: "Khởi Mã — lên Mã trước, nước mở màn linh hoạt bậc nhất: chưa lộ chút ý đồ nào." },
+    { m: [6,3,6,4], a: "Đen đẩy Tốt 7 — đáp án tích cực nhất, giành không gian và kiềm chế Mã Đỏ." },
+    { m: [2,6,2,5], a: "Đẩy Tốt 7 mở đường Mã trái, cân bằng cấu trúc." },
+    { m: [7,0,6,2], a: "Đen lên Mã." },
+    { m: [1,9,2,7], a: "Lên nốt Mã trái — hai Mã Đỏ như đôi cánh én." },
+    { m: [8,0,8,1], a: "Đen dùng Xe hoành, chuẩn bị dời sang lộ 4 hoạt động." },
+    { m: [0,9,0,8], a: "Đỏ cũng Xe hoành đáp lại — trận đấu của những nước cờ mềm." },
+    { m: [8,1,3,1], a: "Xe Đen bình 4 chiếm lộ Sĩ." },
+    { m: [0,8,5,8], a: "Xe Đỏ bình 4 — tránh đối mặt trực tiếp, chiếm lộ 4 cạnh cung Tướng." },
+    { m: [1,0,2,2], a: "Đen lên nốt Mã." },
+    { m: [7,7,8,7], a: "Pháo bình biên — dọn cột cho Xe sau, đồng thời ngắm tuyến biên thông thoáng." },
+    { m: [7,2,8,2], a: "Đen cũng bình Pháo biên đối xứng." },
+    { m: [5,8,5,5], a: "Xe tiến chiếm hà — kiểm soát tuyến sông trước." },
+    { m: [6,0,4,2], a: "Đen phi Tượng vững vàng. Khởi Mã Cục cho thấy: không cần Pháo đầu vẫn có thế trận đầy sức sống." }
+  ]
+},
+{
+  id: "qua-cung-phao",
+  name: "Quá Cung Pháo",
+  cn: "过宫炮",
+  side: "do", level: "Trung cấp",
+  desc: "Đỏ đưa Pháo băng qua cung Tướng sang lộ 6 — dồn lực lượng về một cánh, tạo thế công thủ toàn diện bên cánh phải.",
+  idea: "Đỏ: Pháo quá cung + Sĩ Tượng + Xe tạo khối vững bên cánh phải rồi đẩy quân tấn công cánh đó. Đen: phát triển nhanh cánh đối diện để cân bằng.",
+  moves: [
+    { m: [7,7,3,7], a: "Quá Cung Pháo — Pháo băng ngang qua cung Tướng sang lộ 6, dồn hỏa lực về một cánh." },
+    { m: [7,0,6,2], a: "Đen lên Mã trái." },
+    { m: [7,9,6,7], a: "Lên Mã phải." },
+    { m: [8,0,7,0], a: "Đen ra Xe." },
+    { m: [8,9,7,9], a: "Ra Xe trực — Xe, Mã, Pháo Đỏ quây quần bên cánh phải thành khối thép." },
+    { m: [6,3,6,4], a: "Đen đẩy Tốt 7 hoạt động Mã." },
+    { m: [2,6,2,5], a: "Đẩy Tốt 7 mở đường Mã trái." },
+    { m: [1,0,2,2], a: "Đen lên nốt Mã." },
+    { m: [1,9,2,7], a: "Lên Mã trái — đội hình Đỏ cân đối lạ thường dù Pháo đã dồn cánh." },
+    { m: [2,0,4,2], a: "Đen phi Tượng giữ trung lộ." },
+    { m: [5,9,4,8], a: "Lên Sĩ 4 — hoàn thiện cấu trúc quá cung: Pháo nằm gọn sau lưng Sĩ." },
+    { m: [3,0,4,1], a: "Đen cũng lên Sĩ." },
+    { m: [0,9,1,9], a: "Xe trái ra cột 8, hai Xe Đỏ đều thông." },
+    { m: [0,0,1,0], a: "Xe phải Đen ra cột 2 đối trọng." },
+    { m: [4,6,4,5], a: "Đẩy Tốt đầu giành trung lộ." },
+    { m: [7,2,7,6], a: "Pháo 8 qua hà phản kích — Đen không chịu lép, thế trận hai cánh đối xứng đầy kịch tính." }
+  ]
+},
+{
+  id: "si-giac-phao",
+  name: "Sĩ Giác Pháo",
+  cn: "士角炮",
+  side: "do", level: "Trung cấp",
+  desc: "Đỏ bình Pháo vào góc Sĩ (lộ 4) — khai cuộc kín đáo: Pháo vừa bảo vệ cung Tướng vừa sẵn sàng tung ra tuyến giữa hoặc tuyến 4 tấn công.",
+  idea: "Đỏ: giữ Pháo trong nhà như mũi tên đặt sẵn trên cung, phát triển đầy đủ rồi mới bung sức. Đen: dàn trận cân bằng, không cho Pháo góc có mục tiêu.",
+  moves: [
+    { m: [7,7,5,7], a: "Sĩ Giác Pháo — Pháo nép vào góc Sĩ, nước mở màn trầm lặng mà đầy ẩn ý." },
+    { m: [7,0,6,2], a: "Đen lên Mã trái." },
+    { m: [7,9,6,7], a: "Lên Mã phải." },
+    { m: [8,0,7,0], a: "Đen ra Xe." },
+    { m: [8,9,7,9], a: "Ra Xe trực đối đầu." },
+    { m: [1,0,2,2], a: "Đen hoàn thành cặp Mã bình phong." },
+    { m: [1,9,2,7], a: "Lên nốt Mã trái." },
+    { m: [6,3,6,4], a: "Đen đẩy Tốt 7." },
+    { m: [2,6,2,5], a: "Đẩy Tốt 7 đáp lại, mở đường Mã." },
+    { m: [2,0,4,2], a: "Đen phi Tượng giữ trung." },
+    { m: [0,9,1,9], a: "Xe trái ra cột 8." },
+    { m: [0,0,1,0], a: "Xe phải Đen ra cột 2 — bốn Xe đều đã nhập cuộc." },
+    { m: [3,9,4,8], a: "Lên Sĩ 6 — che chắn cho Pháo góc, khối cung Tướng kín như bưng." },
+    { m: [3,0,4,1], a: "Đen lên Sĩ theo." },
+    { m: [1,7,1,5], a: "Pháo 8 tuần hà — khẩu Pháo thứ hai kiểm soát tuyến sông, được Xe cột 8 chống lưng." },
+    { m: [7,2,7,6], a: "Pháo Đen qua hà khiêu chiến — khai cuộc khép lại, đôi Pháo hai bên đều đã giương cung chờ bắn." }
+  ]
+},
+{
+  id: "tam-bo-ho",
+  name: "Tam Bộ Hổ (bên Đen)",
+  cn: "三步虎",
+  side: "den", level: "Trung cấp",
+  desc: "'Ba bước thành hổ' — Đen đi Mã, ra Xe, bình Pháo biên chỉ trong ba nước để Xe xuất trận cực nhanh, lập tức giành quyền phản công.",
+  idea: "Đen: tốc độ trên hết — Xe thông nòng ngay nước thứ ba, Pháo biên phối hợp đuổi đánh Xe Đỏ. Đỏ: tận dụng trung lộ khi Đen dồn quân ra cánh.",
+  moves: [
+    { m: [7,7,4,7], a: "Pháo đầu." },
+    { m: [7,0,6,2], a: "Bước một: lên Mã." },
+    { m: [7,9,6,7], a: "Đỏ lên Mã." },
+    { m: [8,0,7,0], a: "Bước hai: ra Xe." },
+    { m: [8,9,7,9], a: "Đỏ ra Xe trực." },
+    { m: [7,2,8,2], a: "Bước ba: Pháo bình biên — 'tam bộ hổ' hoàn thành! Xe Đen thông nòng, hổ đã mọc cánh." },
+    { m: [7,9,7,3], a: "Xe Đỏ qua hà ngay, không cho Đen kịp phát huy tốc độ." },
+    { m: [1,0,2,2], a: "Đen lên nốt Mã phải." },
+    { m: [1,9,2,7], a: "Đỏ lên Mã trái, phát triển đầy đủ." },
+    { m: [6,3,6,4], a: "Đẩy Tốt 7 — mở đường Mã và giăng bẫy Xe Đỏ." },
+    { m: [7,3,6,3], a: "Xe bình 3 dòm Tốt — nhưng cẩn thận, Xe đang vào vùng phục kích." },
+    { m: [8,2,8,1], a: "Pháo thoái một — chuẩn bị bình 7 đánh Xe, đòn phản kích ruột của Tam Bộ Hổ." },
+    { m: [2,6,2,5], a: "Đỏ đẩy Tốt 7 mở thêm đường rút cho Xe." },
+    { m: [8,1,6,1], a: "Pháo bình 7! Mượn ngòi Mã bắt Xe — Đỏ buộc phải di dời." },
+    { m: [6,3,5,3], a: "Xe né sang lộ 4 an toàn." },
+    { m: [2,0,4,2], a: "Đen phi Tượng, thế trận ổn định — Tam Bộ Hổ đã hoàn thành mục tiêu: giành nhịp phản công sòng phẳng." }
+  ]
+},
+{
+  id: "ngu-cuu-phao",
+  name: "Ngũ Cửu Pháo vs Bình Phong Mã",
+  cn: "五九炮对屏风马",
+  side: "do", level: "Nâng cao",
+  desc: "Từ trận Pháo đầu quen thuộc, Đỏ bình Pháo ra biên (lộ 9) mở cột cho Xe trái — hệ thống tấn công hai cánh tinh vi ở đẳng cấp cao.",
+  idea: "Đỏ: Pháo 9 mở cột 8 cho Xe trái, hai Xe kẹp hai cánh Đen. Đen: đổi lại bằng Pháo 7 đuổi Xe và Mã ngoại phản kích.",
+  moves: [
+    { m: [7,7,4,7], a: "Pháo đầu." },
+    { m: [7,0,6,2], a: "Đen lên Mã." },
+    { m: [7,9,6,7], a: "Lên Mã phải." },
+    { m: [8,0,7,0], a: "Đen ra Xe." },
+    { m: [8,9,7,9], a: "Xe trực." },
+    { m: [1,0,2,2], a: "Bình Phong Mã hoàn chỉnh." },
+    { m: [2,6,2,5], a: "Đẩy Tốt 7." },
+    { m: [6,3,6,4], a: "Đen đối Tốt 7." },
+    { m: [7,9,7,3], a: "Xe qua hà." },
+    { m: [7,2,8,2], a: "Pháo bình biên chuẩn bị đuổi Xe." },
+    { m: [7,3,6,3], a: "Xe áp cột 3." },
+    { m: [8,2,8,1], a: "Pháo thoái một." },
+    { m: [1,9,2,7], a: "Lên Mã trái." },
+    { m: [3,0,4,1], a: "Đen lên Sĩ." },
+    { m: [1,7,0,7], a: "Pháo bình 9! Nước định hình Ngũ Cửu Pháo — mở toang cột 8 cho Xe trái xuất trận." },
+    { m: [0,0,1,0], a: "Đen ra Xe cột 2 đề phòng." },
+    { m: [0,9,1,9], a: "Xe trái ra cột 8 — hai Xe Đỏ kẹp hai cánh, sức ép dâng cao." },
+    { m: [8,1,6,1], a: "Pháo bình 7 đuổi Xe — Đen phản đòn đúng lúc." },
+    { m: [6,3,5,3], a: "Xe né sang lộ 4, vẫn cắm sâu trong đất Đen." },
+    { m: [6,2,7,4], a: "Mã nhảy ra ngoài hà — Mã ngoại hiếm thấy nhưng ở đây rất đắc địa: dọa xung kích cánh trái Đỏ. Trận đấu đỉnh cao bắt đầu!" }
+  ]
+},
+{
+  id: "thuan-phao-hoanh-xa",
+  name: "Thuận Pháo Hoành Xa",
+  cn: "顺炮横车",
+  side: "do", level: "Trung cấp",
+  desc: "Biến thể Thuận Pháo trong đó Đỏ chọn Xe hoành thay vì Xe trực — Xe dời sang lộ 6 đánh thọc vào sườn cung Tướng Đen.",
+  idea: "Đỏ: Xe hoành sang lộ 6 phối hợp Mã Pháo công phá góc Sĩ Đen. Đen: Xe trực tiến sâu quấy phá, lấy công bù thủ.",
+  moves: [
+    { m: [7,7,4,7], a: "Pháo đầu." },
+    { m: [7,2,4,2], a: "Đen thuận Pháo." },
+    { m: [7,9,6,7], a: "Lên Mã giữ Pháo." },
+    { m: [7,0,6,2], a: "Đen lên Mã." },
+    { m: [8,9,8,8], a: "Xe hoành! Khác với Xe trực, Đỏ đưa Xe lên để dời ngang — hướng đi giàu tưởng tượng." },
+    { m: [8,0,7,0], a: "Đen ra Xe trực." },
+    { m: [8,8,3,8], a: "Xe bình 6 — chiếm lộ Sĩ, mũi dao kề sườn cung Tướng Đen." },
+    { m: [7,0,7,6], a: "Xe Đen tiến sâu sát đáy — không chịu kém, lấy tấn công đáp trả tấn công." },
+    { m: [1,9,2,7], a: "Lên Mã trái." },
+    { m: [1,0,2,2], a: "Đen lên nốt Mã." },
+    { m: [5,9,4,8], a: "Lên Sĩ — vừa củng cố vừa dọn đường cho Xe hoạt động ở lộ 6." },
+    { m: [2,3,2,4], a: "Đen đẩy Tốt 3 mở đường Mã." },
+    { m: [1,7,1,3], a: "Pháo 8 tiến 4 — phong tỏa tuyến Tốt, cắt liên lạc hai cánh của Đen." },
+    { m: [3,0,4,1], a: "Đen lên Sĩ giữ cung." },
+    { m: [0,9,1,9], a: "Xe trái ra chống lưng cho Pháo — toàn quân Đỏ đã vào vị trí chiến đấu." },
+    { m: [0,0,1,0], a: "Xe phải Đen ra cột 2 đối mặt. Thuận Pháo Hoành Xa: một trong những thế trận đối công đẹp nhất của cờ Tướng!" }
+  ]
+}
+];
+if (typeof module !== "undefined") { module.exports = OPENINGS; }
+/* ================= UI ================= */
+(function(){
+"use strict";
+function $(id){ return document.getElementById(id); }
+var CHARS = { r:{K:"帥",A:"仕",E:"相",H:"傌",R:"俥",C:"炮",P:"兵"},
+              b:{K:"將",A:"士",E:"象",H:"馬",R:"車",C:"砲",P:"卒"} };
+var LKEY = "ct_learned_v1";
+var learned = {};
+try { learned = JSON.parse(localStorage.getItem(LKEY) || "{}"); } catch(e){ learned = {}; }
+function saveLearned(){ try{ localStorage.setItem(LKEY, JSON.stringify(learned)); }catch(e){} }
+var toastTimer = null;
+function toast(msg){
+  var t = $("toast"); t.textContent = msg; t.classList.add("show");
+  if (toastTimer) clearTimeout(toastTimer);
+  toastTimer = setTimeout(function(){ t.classList.remove("show"); }, 1900);
+}
+function cloneBoard(b){ return b.map(function(row){ return row.map(function(p){ return p ? {s:p.s,t:p.t} : null; }); }); }
+
+/* precompute notations for openings */
+OPENINGS.forEach(function(op){
+  op._not = [];
+  var b = initialBoard();
+  op.moves.forEach(function(mv){ op._not.push(moveNotation(b, mv.m)); applyMove(b, mv.m); });
+});
+
+/* ---------- board SVG ---------- */
+var CELL=50, MG=40, W=MG*2+CELL*8, HH=MG*2+CELL*9;
+function px(c){ return MG + c*CELL; }
+function py(r){ return MG + r*CELL; }
+function boardSVG(board, opts){
+  opts = opts || {};
+  var s = [];
+  s.push('<svg viewBox="0 0 '+W+' '+HH+'" xmlns="http://www.w3.org/2000/svg">');
+  s.push('<rect x="4" y="4" width="'+(W-8)+'" height="'+(HH-8)+'" rx="10" fill="#F3E1B6"/>');
+  s.push('<g stroke="#8A5A2B" stroke-width="1.6" opacity="0.9">');
+  for (var r=0;r<10;r++) s.push('<line x1="'+px(0)+'" y1="'+py(r)+'" x2="'+px(8)+'" y2="'+py(r)+'"/>');
+  for (var c=0;c<9;c++){
+    if (c===0||c===8){ s.push('<line x1="'+px(c)+'" y1="'+py(0)+'" x2="'+px(c)+'" y2="'+py(9)+'"/>'); }
+    else {
+      s.push('<line x1="'+px(c)+'" y1="'+py(0)+'" x2="'+px(c)+'" y2="'+py(4)+'"/>');
+      s.push('<line x1="'+px(c)+'" y1="'+py(5)+'" x2="'+px(c)+'" y2="'+py(9)+'"/>');
+    }
+  }
+  s.push('<line x1="'+px(3)+'" y1="'+py(0)+'" x2="'+px(5)+'" y2="'+py(2)+'"/>');
+  s.push('<line x1="'+px(5)+'" y1="'+py(0)+'" x2="'+px(3)+'" y2="'+py(2)+'"/>');
+  s.push('<line x1="'+px(3)+'" y1="'+py(7)+'" x2="'+px(5)+'" y2="'+py(9)+'"/>');
+  s.push('<line x1="'+px(5)+'" y1="'+py(7)+'" x2="'+px(3)+'" y2="'+py(9)+'"/>');
+  s.push('</g>');
+  /* border double frame */
+  s.push('<rect x="'+(px(0)-7)+'" y="'+(py(0)-7)+'" width="'+(CELL*8+14)+'" height="'+(CELL*9+14)+'" fill="none" stroke="#8A5A2B" stroke-width="3" opacity="0.85"/>');
+  /* river text */
+  s.push('<text x="'+(px(2)+8)+'" y="'+(py(4)+CELL*0.65)+'" font-size="26" fill="#A9834C" font-family="Noto Serif TC,serif" letter-spacing="10">楚河</text>');
+  s.push('<text x="'+(px(5)+8)+'" y="'+(py(4)+CELL*0.65)+'" font-size="26" fill="#A9834C" font-family="Noto Serif TC,serif" letter-spacing="10">漢界</text>');
+  /* file numbers */
+  s.push('<g font-size="12" fill="#B39869" font-weight="600" text-anchor="middle">');
+  for (var cc=0;cc<9;cc++){
+    s.push('<text x="'+px(cc)+'" y="'+(py(0)-16)+'">'+(cc+1)+'</text>');
+    s.push('<text x="'+px(cc)+'" y="'+(py(9)+24)+'">'+(9-cc)+'</text>');
+  }
+  s.push('</g>');
+  /* cross markers at cannon/pawn points */
+  var marks=[[1,2],[7,2],[1,7],[7,7],[0,3],[2,3],[4,3],[6,3],[8,3],[0,6],[2,6],[4,6],[6,6],[8,6]];
+  s.push('<g stroke="#B08D55" stroke-width="1.2" opacity="0.7">');
+  marks.forEach(function(m){
+    var x=px(m[0]), y=py(m[1]), g=4, l=9;
+    [[-1,-1],[1,-1],[-1,1],[1,1]].forEach(function(d){
+      if ((m[0]===0&&d[0]<0)||(m[0]===8&&d[0]>0)) return;
+      s.push('<polyline fill="none" points="'+(x+d[0]*g)+','+(y+d[1]*(g+l))+' '+(x+d[0]*g)+','+(y+d[1]*g)+' '+(x+d[0]*(g+l))+','+(y+d[1]*g)+'"/>');
+    });
+  });
+  s.push('</g>');
+  /* last move + arrow */
+  if (opts.last){
+    var lm = opts.last;
+    s.push('<circle cx="'+px(lm[0])+'" cy="'+py(lm[1])+'" r="10" fill="none" stroke="#2F8B57" stroke-width="3" opacity="0.8"/>');
+    if (opts.arrow){
+      var x1=px(lm[0]), y1=py(lm[1]), x2=px(lm[2]), y2=py(lm[3]);
+      var dx=x2-x1, dy=y2-y1, len=Math.sqrt(dx*dx+dy*dy)||1;
+      var ux=dx/len, uy=dy/len;
+      var ex=x2-ux*30, ey=y2-uy*30, sx=x1+ux*12, sy=y1+uy*12;
+      s.push('<line x1="'+sx+'" y1="'+sy+'" x2="'+ex+'" y2="'+ey+'" stroke="#2F8B57" stroke-width="5" stroke-linecap="round" opacity="0.85"/>');
+      var ax=x2-ux*26, ay=y2-uy*26;
+      s.push('<polygon fill="#2F8B57" opacity="0.9" points="'+(x2-ux*24)+','+(y2-uy*24)+' '+(ax-uy*7)+','+(ay+ux*7)+' '+(ax+uy*7)+','+(ay-ux*7)+'"/>');
+    } else {
+      s.push('<rect x="'+(px(lm[2])-24)+'" y="'+(py(lm[3])-24)+'" width="48" height="48" rx="10" fill="none" stroke="#2F8B57" stroke-width="2.5" opacity="0.7"/>');
+    }
+  }
+  /* pieces */
+  for (var rr=0;rr<10;rr++) for (var c2=0;c2<9;c2++){
+    var p = board[rr][c2];
+    if (!p) continue;
+    var x = px(c2), y = py(rr);
+    var isSel = opts.sel && opts.sel[0]===c2 && opts.sel[1]===rr;
+    var red = p.s==="r";
+    s.push('<g>');
+    s.push('<circle cx="'+x+'" cy="'+(y+2.5)+'" r="21.5" fill="rgba(80,50,15,0.35)"/>');
+    s.push('<circle cx="'+x+'" cy="'+y+'" r="21.5" fill="'+(red?"#FBF1D9":"#33291F")+'" stroke="'+(red?"#B23A2A":"#191410")+'" stroke-width="2"/>');
+    s.push('<circle cx="'+x+'" cy="'+y+'" r="17.5" fill="none" stroke="'+(red?"#D8A08F":"#87755C")+'" stroke-width="1.2"/>');
+    s.push('<text x="'+x+'" y="'+(y+8)+'" text-anchor="middle" font-size="23" font-weight="700" font-family="Noto Serif TC,serif" fill="'+(red?"#B23A2A":"#F3E7CB")+'">'+CHARS[p.s][p.t]+'</text>');
+    if (isSel) s.push('<circle cx="'+x+'" cy="'+y+'" r="25" fill="none" stroke="#C98A2C" stroke-width="3.5"/>');
+    if (opts.last && opts.last[2]===c2 && opts.last[3]===rr && opts.arrow)
+      s.push('<circle cx="'+x+'" cy="'+y+'" r="25" fill="none" stroke="#2F8B57" stroke-width="3"/>');
+    s.push('</g>');
+  }
+  /* legal dots */
+  if (opts.dots){
+    opts.dots.forEach(function(d){
+      var occupied = board[d[1]][d[0]];
+      if (occupied) s.push('<circle cx="'+px(d[0])+'" cy="'+py(d[1])+'" r="25" fill="none" stroke="#2F8B57" stroke-width="3" stroke-dasharray="5 4"/>');
+      else s.push('<circle cx="'+px(d[0])+'" cy="'+py(d[1])+'" r="8" fill="#2F8B57" opacity="0.65"/>');
+    });
+  }
+  /* click targets */
+  if (opts.clickable){
+    for (var r3=0;r3<10;r3++) for (var c3=0;c3<9;c3++)
+      s.push('<rect data-c="'+c3+'" data-r="'+r3+'" x="'+(px(c3)-25)+'" y="'+(py(r3)-25)+'" width="50" height="50" fill="transparent" style="cursor:pointer"/>');
+  }
+  s.push('</svg>');
+  return s.join("");
+}
+
+/* ---------- view switching ---------- */
+function show(view){
+  $("viewLib").classList.toggle("hidden", view!=="lib");
+  $("viewStudy").classList.toggle("hidden", view!=="study");
+  $("viewPlay").classList.toggle("hidden", view!=="play");
+  $("mainTabs").classList.toggle("hidden", view==="study");
+  $("tabLib").classList.toggle("on", view==="lib");
+  $("tabPlay").classList.toggle("on", view==="play");
+  if (view!=="study") stopAuto();
+  window.scrollTo(0,0);
+}
+
+/* ---------- library ---------- */
+function renderLib(){
+  var host = $("opList"); host.innerHTML = "";
+  OPENINGS.forEach(function(op){
+    var d = document.createElement("div");
+    d.className = "opcard" + (learned[op.id] ? " is-learned" : "");
+    d.innerHTML = '<h3>'+op.name+'<span class="cn">'+op.cn+'</span></h3>'
+      + '<div class="badges">'
+      + '<span class="badge '+(op.side==="do"?"b-do":"b-den")+'">'+(op.side==="do"?"Trận công bên Đỏ":"Phòng thủ bên Đen")+'</span>'
+      + '<span class="badge b-lv">'+op.level+'</span>'
+      + '<span class="badge b-n">'+op.moves.length+' nước</span>'
+      + '</div><p>'+op.desc+'</p><div class="learned">✓</div>';
+    d.addEventListener("click", function(){ openStudy(op); });
+    host.appendChild(d);
+  });
+}
+
+/* ---------- study ---------- */
+var st = { op:null, ply:0, auto:null };
+function stopAuto(){
+  if (st.auto){ clearInterval(st.auto); st.auto = null; $("stAuto").textContent = "▶︎ Auto"; }
+}
+function stBoardAt(ply){
+  var b = initialBoard();
+  for (var i=0;i<ply;i++) applyMove(b, st.op.moves[i].m);
+  return b;
+}
+function openStudy(op){
+  stopAuto(); st.op = op; st.ply = 0;
+  $("stTitle").firstChild.textContent = op.name;
+  $("stSub").textContent = op.cn + " · " + op.level + " · " + op.moves.length + " nước";
+  $("stIdea").innerHTML = "<b>Ý tưởng chiến lược:</b> " + op.idea;
+  updLearnedBtn();
+  renderStudy();
+  show("study");
+}
+function updLearnedBtn(){
+  $("stLearned").textContent = learned[st.op.id] ? "✓ Đã học rồi" : "✓ Đã học";
+  $("stLearned").style.opacity = learned[st.op.id] ? "0.75" : "1";
+}
+function renderStudy(){
+  var op = st.op;
+  var b = stBoardAt(st.ply);
+  var last = st.ply > 0 ? op.moves[st.ply-1].m : null;
+  $("stBoard").innerHTML = boardSVG(b, { last:last, arrow:true });
+  var bub;
+  if (st.ply === 0){
+    bub = "<b>" + op.name + ".</b> " + op.desc + "<br><i style='color:var(--muted)'>Bấm ▶ để xem từng nước đi kèm giải thích.</i>";
+  } else {
+    var i = st.ply - 1;
+    var moveNo = Math.floor(i/2) + 1;
+    var who = i % 2 === 0 ? "Đỏ" : "Đen";
+    bub = '<span class="mv">' + moveNo + '. ' + (i%2===1?"… ":"") + op._not[i] + '</span><b>' + who + ':</b> ' + op.moves[i].a;
+  }
+  $("stBubble").innerHTML = bub;
+  var chips = $("stChips"); chips.innerHTML = "";
+  op.moves.forEach(function(mv, i){
+    var c = document.createElement("div");
+    c.className = "chip " + (i%2===0?"red":"blk") + (i===st.ply-1?" cur":"");
+    c.innerHTML = '<span class="no">' + (Math.floor(i/2)+1) + (i%2===1?"…":".") + '</span>' + op._not[i];
+    c.addEventListener("click", function(){ stopAuto(); st.ply = i+1; renderStudy(); });
+    chips.appendChild(c);
+  });
+  var cur = chips.querySelector(".cur");
+  if (cur) cur.scrollIntoView({ block:"nearest", inline:"center", behavior:"smooth" });
+  $("stPrev").disabled = $("stFirst").disabled = st.ply === 0;
+  $("stNext").disabled = $("stLast").disabled = st.ply >= op.moves.length;
+}
+$("stBack").addEventListener("click", function(){ show("lib"); renderLib(); });
+$("stFirst").addEventListener("click", function(){ stopAuto(); st.ply=0; renderStudy(); });
+$("stPrev").addEventListener("click", function(){ stopAuto(); if(st.ply>0){st.ply--; renderStudy();} });
+$("stNext").addEventListener("click", function(){ stopAuto(); if(st.ply<st.op.moves.length){st.ply++; renderStudy();} });
+$("stLast").addEventListener("click", function(){ stopAuto(); st.ply=st.op.moves.length; renderStudy(); });
+$("stRetry").addEventListener("click", function(){ stopAuto(); st.ply=0; renderStudy(); toast("Bắt đầu lại từ đầu"); });
+$("stAuto").addEventListener("click", function(){
+  if (st.auto){ stopAuto(); return; }
+  if (st.ply >= st.op.moves.length) st.ply = 0;
+  renderStudy();
+  $("stAuto").textContent = "⏸ Dừng";
+  st.auto = setInterval(function(){
+    if (st.ply >= st.op.moves.length){ stopAuto(); toast("Hết ván — bấm ↺ để học lại"); return; }
+    st.ply++; renderStudy();
+  }, 2400);
+});
+$("stLearned").addEventListener("click", function(){
+  learned[st.op.id] = !learned[st.op.id];
+  saveLearned(); updLearnedBtn();
+  toast(learned[st.op.id] ? "Đã đánh dấu: bạn thuộc khai cuộc này 🎓" : "Đã bỏ đánh dấu");
+});
+$("stPlayFrom").addEventListener("click", function(){
+  stopAuto();
+  var b = stBoardAt(st.ply);
+  var turn = st.ply % 2 === 0 ? "r" : "b";
+  var human = st.op.side === "do" ? "r" : "b";
+  startGame({ board:b, turn:turn, mode: human==="r" ? "ai-r" : "ai-b",
+    label: "Tiếp từ: " + st.op.name + (st.ply>0 ? " (sau nước "+st.ply+")" : "") });
+  show("play");
+});
+
+/* ---------- play ---------- */
+var pl = { board:null, turn:"r", mode:"ai-r", depth:3, hist:[], sel:null, dots:[], over:false, busy:false,
+           base:null, baseTurn:"r", label:"" };
+function humanSide(){ return pl.mode==="ai-r" ? "r" : pl.mode==="ai-b" ? "b" : null; }
+function aiSide(){ return pl.mode==="ai-r" ? "b" : pl.mode==="ai-b" ? "r" : null; }
+function startGame(optsIn){
+  var o = optsIn || {};
+  pl.board = o.board ? cloneBoard(o.board) : initialBoard();
+  pl.turn = o.turn || "r";
+  if (o.mode) pl.mode = o.mode;
+  pl.base = cloneBoard(pl.board); pl.baseTurn = pl.turn;
+  pl.hist = []; pl.sel = null; pl.dots = []; pl.over = false; pl.busy = false;
+  pl.label = o.label || "";
+  $("endOverlay").classList.remove("show");
+  syncModeButtons(); renderPlay();
+  maybeAI();
+}
+function syncModeButtons(){
+  var btns = $("modeRow").querySelectorAll(".optbtn");
+  for (var i=0;i<btns.length;i++) btns[i].classList.toggle("on", btns[i].getAttribute("data-mode")===pl.mode);
+  var dbtns = $("diffRow").querySelectorAll(".optbtn");
+  for (var j=0;j<dbtns.length;j++) dbtns[j].classList.toggle("on", +dbtns[j].getAttribute("data-d")===pl.depth);
+  $("plSub").textContent = pl.label || (pl.mode==="2p" ? "Hai người chơi trên cùng máy" : "Bạn cầm " + (pl.mode==="ai-r"?"Đỏ":"Đen") + " — máy cầm " + (pl.mode==="ai-r"?"Đen":"Đỏ"));
+}
+function renderPlay(){
+  var clickable = !pl.over && !pl.busy && (pl.mode==="2p" || pl.turn===humanSide());
+  var last = pl.hist.length ? pl.hist[pl.hist.length-1].m : null;
+  $("plBoard").innerHTML = boardSVG(pl.board, { last:last, arrow:true, sel:pl.sel, dots:pl.dots, clickable:clickable });
+  var tp = $("plTurn");
+  tp.textContent = pl.over ? "Ván đã kết thúc" : (pl.turn==="r" ? "Đỏ đi" : "Đen đi");
+  tp.className = "turnpill " + (pl.turn==="r" ? "turn-r" : "turn-b");
+  var chips = $("plChips"); chips.innerHTML = "";
+  pl.hist.forEach(function(h, i){
+    var c = document.createElement("div");
+    c.className = "chip " + (h.side==="r"?"red":"blk");
+    c.innerHTML = '<span class="no">' + (Math.floor(i/2)+1) + (i%2===1?"…":".") + '</span>' + h.not;
+    chips.appendChild(c);
+  });
+  chips.scrollLeft = chips.scrollWidth;
+}
+function endGame(winner, why){
+  pl.over = true; pl.busy = false;
+  $("plThink").textContent = "";
+  var hs = humanSide();
+  var youWin = hs && winner===hs, youLose = hs && winner!==hs;
+  $("endIcon").textContent = youWin ? "🏆" : youLose ? "🙈" : "🏁";
+  $("endTitle").textContent = (winner==="r" ? "Đỏ thắng!" : "Đen thắng!") + (youWin ? " Chúc mừng!" : "");
+  $("endDesc").textContent = why;
+  $("endOverlay").classList.add("show");
+  renderPlay();
+}
+function afterMove(){
+  pl.sel = null; pl.dots = [];
+  var next = pl.turn;
+  var moves = legalMoves(pl.board, next);
+  if (moves.length === 0){
+    var winner = next==="r" ? "b" : "r";
+    endGame(winner, inCheck(pl.board, next) ? "Chiếu bí — không còn nước cản!" : "Hết nước đi (bị vây khốn).");
+    return;
+  }
+  if (inCheck(pl.board, next)) toast("Chiếu tướng!");
+  renderPlay();
+  maybeAI();
+}
+function doMove(m){
+  var not = moveNotation(pl.board, m);
+  var side = pl.board[m[1]][m[0]].s;
+  var cap = applyMove(pl.board, m);
+  pl.hist.push({ m:m, cap:cap, not:not, side:side });
+  pl.turn = pl.turn==="r" ? "b" : "r";
+  afterMove();
+}
+function maybeAI(){
+  if (pl.over || pl.mode==="2p" || pl.turn!==aiSide()) return;
+  pl.busy = true;
+  $("plThink").textContent = "Máy đang nghĩ…";
+  renderPlay();
+  setTimeout(function(){
+    var m = bestMove(pl.board, pl.turn, pl.depth);
+    pl.busy = false;
+    $("plThink").textContent = "";
+    if (!m){ endGame(pl.turn==="r"?"b":"r", "Máy hết nước đi."); return; }
+    doMove(m);
+  }, 120);
+}
+$("plBoard").addEventListener("click", function(ev){
+  var t = ev.target;
+  if (!t || !t.getAttribute || t.getAttribute("data-c")===null || t.getAttribute("data-c")===undefined) return;
+  var c = +t.getAttribute("data-c"), r = +t.getAttribute("data-r");
+  if (isNaN(c) || pl.over || pl.busy) return;
+  if (pl.mode!=="2p" && pl.turn!==humanSide()) return;
+  var p = pl.board[r][c];
+  if (pl.sel){
+    var ok = pl.dots.some(function(d){ return d[0]===c && d[1]===r; });
+    if (ok){ doMove([pl.sel[0], pl.sel[1], c, r]); return; }
+  }
+  if (p && p.s===pl.turn){
+    pl.sel = [c,r];
+    pl.dots = legalMoves(pl.board, pl.turn)
+      .filter(function(m){ return m[0]===c && m[1]===r; })
+      .map(function(m){ return [m[2], m[3]]; });
+    if (pl.dots.length===0) toast("Quân này hiện không có nước đi hợp lệ");
+    renderPlay();
+  } else if (pl.sel){
+    pl.sel = null; pl.dots = []; renderPlay();
+  }
+});
+$("plUndo").addEventListener("click", function(){
+  if (pl.busy) return;
+  var n = pl.mode==="2p" ? 1 : 2;
+  if (pl.hist.length === 0){ toast("Chưa có nước nào để đi lại"); return; }
+  $("endOverlay").classList.remove("show"); pl.over = false;
+  while (n-- > 0 && pl.hist.length > 0){
+    var h = pl.hist.pop();
+    undoMove(pl.board, h.m, h.cap);
+    pl.turn = pl.turn==="r" ? "b" : "r";
+  }
+  pl.sel = null; pl.dots = [];
+  renderPlay();
+  maybeAI();
+});
+$("plNew").addEventListener("click", function(){ startGame({ mode: pl.mode }); toast("Ván mới — chúc may mắn!"); });
+$("endNew").addEventListener("click", function(){ startGame({ mode: pl.mode }); });
+$("plBack").addEventListener("click", function(){ show("lib"); renderLib(); });
+$("modeRow").addEventListener("click", function(ev){
+  var b = ev.target.closest(".optbtn"); if (!b) return;
+  startGame({ mode: b.getAttribute("data-mode") });
+});
+$("diffRow").addEventListener("click", function(ev){
+  var b = ev.target.closest(".optbtn"); if (!b) return;
+  pl.depth = +b.getAttribute("data-d");
+  syncModeButtons();
+  toast("Độ khó: " + (pl.depth===2 ? "Dễ" : "Thường"));
+});
+
+/* ---------- tabs & init ---------- */
+$("tabLib").addEventListener("click", function(){ show("lib"); renderLib(); });
+$("tabPlay").addEventListener("click", function(){
+  if (!pl.board) startGame({ mode:"ai-r" });
+  show("play");
+});
+renderLib();
+show("lib");
+})();
+</script>
+</body>
+</html>

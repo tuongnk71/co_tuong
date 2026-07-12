@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, interactive-widget=resizes-content" />
+<meta name="theme-color" content="#B23A2A" />
+<meta name="mobile-web-app-capable" content="yes" />
+<title>Cờ Tướng — Học Khai Cuộc</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;800&family=Noto+Serif+TC:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#EDE0C5; --bg2:#E4D3B2; --card:#FBF4E2; --card2:#F5EAD2; --border:#D8C49C; --border2:#C4AC7E;
+  --ink:#3A2E21; --muted:#8D7B61; --red:#B23A2A; --red-dk:#8E2B1D; --red-lt:#D0543F;
+  --green:#2F8B57; --gold:#C98A2C; --dark:#2C2823; --shadow:0 4px 14px rgba(90,60,20,.18);
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+html,body{margin:0;padding:0;}
+body{
+  background:
+    radial-gradient(1200px 500px at 50% -200px, rgba(178,58,42,.10), transparent 70%),
+    linear-gradient(var(--bg), var(--bg2));
+  min-height:100vh; color:var(--ink);
+  font-family:'Be Vietnam Pro', system-ui, sans-serif;
+}
+.app{max-width:540px;margin:0 auto;padding:10px 12px 40px;}
+/* ---------- header ---------- */
+.hdr{display:flex;align-items:center;gap:12px;padding:10px 4px 6px;}
+.logo{width:46px;height:46px;border-radius:50%;background:radial-gradient(circle at 35% 30%, #D45B42, var(--red) 60%, var(--red-dk));
+  color:#FFF4DC;display:flex;align-items:center;justify-content:center;font-family:'Noto Serif TC',serif;font-size:26px;
+  box-shadow:0 3px 8px rgba(142,43,29,.4), inset 0 0 0 3px rgba(255,244,220,.35);flex:0 0 auto;}
+.hdr h1{font-size:20px;margin:0;font-weight:800;letter-spacing:.3px;}
+.hdr .sub{font-size:12px;color:var(--muted);margin-top:2px;}
+.tabs{display:flex;gap:8px;margin:12px 0 14px;}
+.tab{flex:1;text-align:center;padding:11px 8px;border-radius:14px;border:1.5px solid var(--border2);
+  background:var(--card2);font-weight:600;font-size:14.5px;color:var(--muted);cursor:pointer;user-select:none;transition:all .15s;}
+.tab.on{background:linear-gradient(var(--red-lt),var(--red));color:#FFF6E3;border-color:var(--red-dk);box-shadow:0 3px 8px rgba(142,43,29,.35);}
+/* ---------- library cards ---------- */
+.opcard{background:var(--card);border:1.5px solid var(--border);border-radius:16px;padding:14px 15px;margin-bottom:12px;
+  box-shadow:var(--shadow);cursor:pointer;position:relative;overflow:hidden;}
+.opcard:active{transform:scale(.985);}
+.opcard h3{margin:0 0 6px;font-size:16px;font-weight:800;color:var(--red-dk);padding-right:28px;}
+.opcard .cn{font-family:'Noto Serif TC',serif;color:var(--gold);font-size:13px;margin-left:6px;font-weight:700;}
+.opcard p{margin:8px 0 0;font-size:13px;line-height:1.5;color:var(--ink);opacity:.85;}
+.badges{display:flex;gap:6px;flex-wrap:wrap;}
+.badge{font-size:11px;font-weight:600;padding:3px 9px;border-radius:99px;border:1px solid;}
+.b-do{color:#A03020;border-color:#D8907F;background:#F9E3DC;}
+.b-den{color:#3A362E;border-color:#A9A190;background:#EAE4D4;}
+.b-lv{color:#7A5A16;border-color:#D9B979;background:#F7ECCF;}
+.b-n{color:#5A6E5D;border-color:#AEC2AF;background:#E8EFE6;}
+.b-win{color:#1F6B43;border-color:#8FBFA3;background:#E2F0E7;}
+.b-draw{color:#6B5A1F;border-color:#C4B279;background:#F2ECD6;}
+.learned{position:absolute;top:12px;right:12px;width:24px;height:24px;border-radius:50%;
+  background:var(--green);color:#fff;display:none;align-items:center;justify-content:center;font-size:14px;font-weight:800;}
+.opcard.is-learned .learned{display:flex;}
+/* ---------- study / play shared ---------- */
+.topbar{display:flex;align-items:center;gap:10px;margin:4px 0 10px;}
+.backbtn{width:38px;height:38px;border-radius:12px;border:1.5px solid var(--border2);background:var(--card);
+  font-size:18px;color:var(--red-dk);cursor:pointer;flex:0 0 auto;font-weight:800;}
+.topbar .t{font-weight:800;font-size:15.5px;line-height:1.25;}
+.topbar .t small{display:block;font-weight:500;color:var(--muted);font-size:11.5px;margin-top:1px;}
+.bubble{display:flex;gap:10px;align-items:flex-start;background:var(--card);border:1.5px solid var(--border);
+  border-radius:16px;padding:11px 13px;box-shadow:var(--shadow);margin-bottom:10px;min-height:58px;}
+.avatar{width:34px;height:34px;border-radius:50%;flex:0 0 auto;background:radial-gradient(circle at 35% 30%,#4A443C,var(--dark));
+  color:#F5EBD3;display:flex;align-items:center;justify-content:center;font-family:'Noto Serif TC',serif;font-size:18px;
+  box-shadow:inset 0 0 0 2px rgba(245,235,211,.3);}
+.bubble .txt{font-size:13.5px;line-height:1.5;}
+.bubble .mv{display:inline-block;background:var(--red);color:#FFF3DE;font-weight:700;font-size:12px;
+  padding:1.5px 8px;border-radius:8px;margin-right:6px;}
+.boardwrap{background:linear-gradient(#E8CFA0,#DFC08A);border:2px solid #B08D55;border-radius:18px;
+  box-shadow:var(--shadow), inset 0 0 40px rgba(140,95,40,.25);padding:6px;position:relative;}
+.boardwrap svg{display:block;width:100%;height:auto;user-select:none;}
+.chips{display:flex;gap:6px;overflow-x:auto;padding:10px 2px;scrollbar-width:thin;}
+.chip{flex:0 0 auto;font-size:12.5px;font-weight:600;padding:6px 10px;border-radius:10px;border:1.5px solid var(--border2);
+  background:var(--card);color:var(--ink);cursor:pointer;white-space:nowrap;}
+.chip.red{color:var(--red-dk);}
+.chip.blk{color:#2E2A26;}
+.chip.cur{background:var(--dark);color:#F7EEDC;border-color:var(--dark);box-shadow:0 2px 6px rgba(0,0,0,.3);}
+.chip .no{opacity:.55;font-weight:500;margin-right:3px;font-size:11px;}
+.ctrls{display:flex;gap:8px;margin-top:4px;}
+.cbtn{flex:1;padding:12px 4px;border-radius:14px;border:1.5px solid var(--border2);background:var(--card);
+  font-size:17px;cursor:pointer;color:var(--red-dk);font-weight:800;transition:transform .1s;}
+.cbtn:active{transform:scale(.95);}
+.cbtn:disabled{opacity:.35;cursor:default;}
+.bigrow{display:flex;gap:10px;margin-top:10px;}
+.bigbtn{flex:1;padding:13px 8px;border-radius:14px;font-size:14.5px;font-weight:700;cursor:pointer;border:1.5px solid;}
+.bigbtn.solid{background:linear-gradient(var(--red-lt),var(--red));border-color:var(--red-dk);color:#FFF6E3;box-shadow:0 3px 8px rgba(142,43,29,.35);}
+.bigbtn.line{background:var(--card);border-color:var(--red);color:var(--red-dk);}
+.bigbtn.green{background:linear-gradient(#43A268,var(--green));border-color:#26714628;border-color:#256E45;color:#F0FFF5;}
+.bigbtn:active{transform:scale(.97);}
+/* ---------- play options ---------- */
+.optrow{display:flex;gap:8px;margin-bottom:10px;}
+.optbtn{flex:1;padding:10px 4px;border-radius:12px;border:1.5px solid var(--border2);background:var(--card2);
+  font-size:13px;font-weight:600;color:var(--muted);cursor:pointer;text-align:center;}
+.optbtn.on{background:var(--dark);color:#F7EEDC;border-color:var(--dark);}
+.statusline{display:flex;align-items:center;justify-content:space-between;margin:2px 2px 8px;font-size:13px;font-weight:600;}
+.turnpill{padding:4px 12px;border-radius:99px;font-size:12.5px;font-weight:700;}
+.turn-r{background:#F6DED6;color:var(--red-dk);border:1px solid #DFA091;}
+.turn-b{background:#E3DFD3;color:#2E2A26;border:1px solid #A9A190;}
+.thinking{color:var(--muted);font-size:12px;font-style:italic;}
+/* ---------- toast & overlay ---------- */
+.toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(20px);background:var(--dark);color:#F7EEDC;
+  padding:11px 20px;border-radius:14px;font-size:14px;font-weight:600;opacity:0;pointer-events:none;transition:all .25s;z-index:60;
+  box-shadow:0 6px 18px rgba(0,0,0,.35);max-width:90vw;text-align:center;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+.overlay{position:fixed;inset:0;background:rgba(40,28,14,.55);display:none;align-items:center;justify-content:center;z-index:50;padding:20px;}
+.overlay.show{display:flex;}
+.obox{background:var(--card);border:2px solid var(--border2);border-radius:20px;padding:26px 22px;text-align:center;max-width:320px;width:100%;box-shadow:0 10px 40px rgba(0,0,0,.4);}
+.obox .big{font-size:40px;}
+.obox h2{margin:10px 0 6px;font-size:20px;color:var(--red-dk);}
+.obox p{margin:0 0 16px;font-size:13.5px;color:var(--muted);}
+.hidden{display:none !important;}
+.section-note{font-size:12px;color:var(--muted);margin:2px 4px 10px;line-height:1.5;}
+.idea{background:var(--card2);border:1.5px dashed var(--border2);border-radius:14px;padding:10px 13px;font-size:12.5px;line-height:1.55;color:var(--ink);margin-top:10px;}
+.idea b{color:var(--red-dk);}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="hdr">
+    <div class="logo">帥</div>
+    <div>
+      <h1>Cờ Tướng</h1>
+      <div class="sub">Học khai cuộc &amp; đấu trí cùng máy</div>
+    </div>
+  </div>
+
+  <div class="tabs" id="mainTabs">
+    <div class="tab on" id="tabLib">📚 Khai cuộc</div>
+    <div class="tab" id="tabEnd">🏁 Tàn cuộc</div>
+    <div class="tab" id="tabPlay">⚔️ Chơi cờ</div>
+  </div>
+
+  <div id="viewLib">
+    <div class="section-note"><b>50 cạm bẫy khai cuộc</b> + <b>50 ván đấu minh họa</b> từ sách <b>"Khai cuộc và những cạm bẫy trong khai cuộc" (1996)</b> của Trịnh Hàm Hải &amp; Trịnh Thuật Hải — mọi nước đi đều được kiểm chứng bằng luật cờ. Học xong bấm <b>Chơi tiếp từ đây</b> để thử lại cạm bẫy với máy!</div>
+    <div class="chips" id="opChips"></div>
+    <div id="opList"></div>
+  </div>
+
+  <div id="viewEnd" class="hidden">
+    <div class="section-note"><b>8 sát pháp kinh điển</b> + <b>270 ván tàn cuộc</b> từ sách <b>"Cờ Tướng Tàn Cuộc" (1987)</b> của Phạm Tấn Hòa, Lê Thiên Vị, Quách Anh Tú — mọi nước đi đều đã được kiểm chứng bằng luật cờ. Chọn chương bên dưới, học xong hãy bấm <b>Chơi tiếp từ đây</b> để tự tay thực hiện!</div>
+    <div class="chips" id="egChips"></div>
+    <div id="egList"></div>
+  </div>
+
+  <div id="viewStudy" class="hidden">
+    <div class="topbar">
+      <button class="backbtn" id="stBack">←</button>
+      <div class="t" id="stTitle">Khai cuộc<small id="stSub"></small></div>
+    </div>
+    <div class="bubble">
+      <div class="avatar">卒</div>
+      <div class="txt" id="stBubble"></div>
+    </div>
+    <div class="boardwrap" id="stBoard"></div>
+    <div class="chips" id="stChips"></div>
+    <div class="ctrls">
+      <button class="cbtn" id="stFirst">⏮</button>
+      <button class="cbtn" id="stPrev">◀</button>
+      <button class="cbtn" id="stAuto">▶︎ Auto</button>
+      <button class="cbtn" id="stNext">▶</button>
+      <button class="cbtn" id="stLast">⏭</button>
+    </div>
+    <div class="bigrow">
+      <button class="bigbtn line" id="stRetry">↺ Học lại</button>
+      <button class="bigbtn solid" id="stPlayFrom">⚔ Chơi tiếp từ đây</button>
+      <button class="bigbtn green" id="stLearned">✓ Đã học</button>
+    </div>
+    <div class="idea" id="stIdea"></div>
+  </div>
+
+  <div id="viewPlay" class="hidden">
+    <div class="topbar">
+      <button class="backbtn" id="plBack">←</button>
+      <div class="t">Chơi cờ<small id="plSub">Chọn chế độ rồi bắt đầu</small></div>
+    </div>
+    <div class="optrow" id="modeRow">
+      <div class="optbtn on" data-mode="ai-r">🙂 Bạn cầm Đỏ</div>
+      <div class="optbtn" data-mode="ai-b">🙂 Bạn cầm Đen</div>
+      <div class="optbtn" data-mode="2p">👥 Hai người</div>
+    </div>
+    <div class="optrow" id="diffRow">
+      <div class="optbtn" data-d="2">Máy: Dễ</div>
+      <div class="optbtn on" data-d="3">Máy: Thường</div>
+    </div>
+    <div class="statusline">
+      <span class="turnpill turn-r" id="plTurn">Đỏ đi</span>
+      <span class="thinking" id="plThink"></span>
+    </div>
+    <div class="boardwrap" id="plBoard"></div>
+    <div class="chips" id="plChips"></div>
+    <div class="bigrow">
+      <button class="bigbtn line" id="plUndo">↩ Đi lại</button>
+      <button class="bigbtn solid" id="plNew">↺ Ván mới</button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="endOverlay">
+  <div class="obox">
+    <div class="big" id="endIcon">🏆</div>
+    <h2 id="endTitle">Kết thúc</h2>
+    <p id="endDesc"></p>
+    <button class="bigbtn solid" style="width:100%" id="endNew">Ván mới</button>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
